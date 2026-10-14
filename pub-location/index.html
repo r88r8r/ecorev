@@ -92,6 +92,40 @@
               <svg width="96" height="96" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="16" rx="4" fill="#141414" /><circle cx="12" cy="7" r="1.6" fill="#d9bf8c" /><circle cx="12" cy="12" r="1.6" fill="#d9bf8c" /><path d="M12 18v4" stroke="#141414" stroke-width="2" /></svg>
             </div>
 
+            <!-- extra content tiles -->
+            <div class="t iv" style="left: 1535px; top: 420px; width: 265px; height: 400px">
+              <svg width="265" height="300" viewBox="0 0 265 300"><g stroke="#e0d8ca" stroke-width="10"><path d="M0 60H265M0 160H265M0 250H265M60 0V300M150 0V300M220 0V300" /></g><path d="M40 270 C 60 200, 150 210, 150 160 S 210 90, 220 40" fill="none" stroke="#a8803f" stroke-width="8" stroke-linecap="round" stroke-dasharray="320" stroke-dashoffset="320" id="route" /><circle cx="220" cy="40" r="16" fill="#141414" /><circle cx="220" cy="40" r="6" fill="#d9bf8c" /></svg>
+              <div style="padding: 0 26px"><div class="lbl" style="font-size: 20px; color: #a8803f">Livraison</div><div style="font-weight: 800; font-size: 40px">15 min</div></div>
+            </div>
+            <div class="t bk" style="left: 1535px; top: 850px; width: 265px; height: 265px; padding: 30px; box-sizing: border-box">
+              <div class="bod" style="font-weight: 700; font-size: 104px; line-height: 1; color: #e6cf9f">4,9</div>
+              <div style="color: #d9bf8c; font-size: 34px; letter-spacing: 4px">★★★★★</div>
+              <div style="font-size: 22px; color: #b8ae9e">120 avis clients</div>
+            </div>
+            <div class="t bk" style="left: 540px; top: 1100px; width: 330px; height: 200px; padding: 26px; box-sizing: border-box">
+              <div style="display: flex; justify-content: space-between; font-size: 20px; color: #b8ae9e"><b style="color: #d9bf8c; letter-spacing: 2px">HC LUXURY</b><span>maintenant</span></div>
+              <div style="font-weight: 700; font-size: 28px; margin-top: 18px; line-height: 1.25">Votre Golf 8.5 R vous attend.</div>
+            </div>
+            <div class="t gd" style="left: 1540px; top: 1460px; width: 250px; height: 110px; display: grid; place-items: center"><b class="lbl" style="color: #141414">7J/7 · 24H</b></div>
+            <div class="t bk" style="left: 1515px; top: 1690px; width: 280px; height: 175px; padding: 24px; box-sizing: border-box; box-shadow: inset 0 0 0 2px #a8803f, 0 34px 70px rgba(70,52,28,.2)">
+              <div class="bod" style="font-weight: 700; font-size: 34px; color: #e6cf9f">HC</div>
+              <div class="lbl" style="font-size: 18px; margin-top: 30px">Membre privilège</div>
+              <div style="position: absolute; right: 24px; top: 26px; width: 46px; height: 34px; border-radius: 6px; background: linear-gradient(135deg,#e6cf9f,#a8803f)"></div>
+            </div>
+            <div class="t iv" style="left: 1560px; top: 2470px; width: 280px; height: 280px; padding: 24px; box-sizing: border-box">
+              <div class="lbl" style="font-size: 18px; color: #a8803f">Octobre</div>
+              <div id="calg" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 12px"></div>
+            </div>
+            <div class="t bk" style="left: 2650px; top: 1320px; width: 300px; height: 300px; padding: 34px; box-sizing: border-box">
+              <div class="lbl" style="color: #d9bf8c">0 – 100 km/h</div>
+              <div class="bod" style="font-weight: 700; font-size: 120px; line-height: 1.15; color: #e6cf9f">4,6<span style="font-size: 50px"> s</span></div>
+              <div style="font-size: 22px; color: #b8ae9e">Golf 8.5 R</div>
+            </div>
+            <div class="t iv" style="left: 180px; top: 1560px; width: 300px; height: 200px; padding: 30px; box-sizing: border-box">
+              <div style="width: 54px; height: 54px; border-radius: 50%; background: #141414; display: grid; place-items: center; color: #d9bf8c; font-size: 30px">✓</div>
+              <div style="font-weight: 800; font-size: 30px; margin-top: 16px">Assurance incluse</div>
+            </div>
+
             <!-- B : phone -->
             <div class="t" id="phoneT" style="left: 990px; top: 370px; width: 520px; height: 1060px; background: #000">
               <div class="screen">
@@ -169,15 +203,15 @@
       </div>
 
       <!-- Audio: music (client track, ducked under the voice), Google Chirp3-HD voice-over, sfx -->
-      <audio id="music" src="audio/track.wav" data-start="0" data-duration="37" data-volume="1" data-track-index="20" data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.3,"v":0.9},{"t":0.31,"v":0.9},{"t":0.5,"v":0.22},{"t":4.73,"v":0.22},{"t":5.13,"v":0.9},{"t":5.14,"v":0.9},{"t":5.15,"v":0.22},{"t":9.03,"v":0.22},{"t":9.43,"v":0.9},{"t":9.44,"v":0.9},{"t":9.45,"v":0.22},{"t":10.83,"v":0.22},{"t":11.23,"v":0.9},{"t":11.24,"v":0.9},{"t":11.3,"v":0.22},{"t":12.65,"v":0.22},{"t":13.05,"v":0.9},{"t":13.06,"v":0.9},{"t":13.07,"v":0.22},{"t":17.63,"v":0.22},{"t":18.03,"v":0.9},{"t":18.04,"v":0.9},{"t":18.2,"v":0.22},{"t":22.7,"v":0.22},{"t":23.1,"v":0.9},{"t":23.8,"v":0.9},{"t":24.1,"v":0.22},{"t":26.69,"v":0.22},{"t":27.09,"v":0.9},{"t":28.5,"v":0.9},{"t":28.8,"v":0.22},{"t":31.81,"v":0.22},{"t":32.21,"v":0.9},{"t":33.0,"v":0.9},{"t":33.3,"v":0.22},{"t":35.2,"v":0.22},{"t":35.6,"v":0.9},{"t":35.61,"v":0.9},{"t":37,"v":0}]}]}'></audio>
-      <audio id="vo1" src="audio/vo1.wav" data-start="0.5" data-duration="4.23" data-track-index="21"></audio>
-      <audio id="vo2" src="audio/vo2.wav" data-start="4.9" data-duration="4.13" data-track-index="21"></audio>
+      <audio id="music" src="audio/track.wav" data-start="0" data-duration="37" data-volume="1" data-track-index="20" data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.3,"v":0.9},{"t":0.31,"v":0.9},{"t":0.4,"v":0.22},{"t":4.8,"v":0.22},{"t":5.2,"v":0.9},{"t":5.21,"v":0.9},{"t":5.22,"v":0.22},{"t":9.13,"v":0.22},{"t":9.53,"v":0.9},{"t":9.54,"v":0.9},{"t":9.55,"v":0.22},{"t":10.83,"v":0.22},{"t":11.23,"v":0.9},{"t":11.24,"v":0.9},{"t":11.3,"v":0.22},{"t":12.64,"v":0.22},{"t":13.04,"v":0.9},{"t":13.05,"v":0.9},{"t":13.06,"v":0.22},{"t":17.63,"v":0.22},{"t":18.03,"v":0.9},{"t":18.04,"v":0.9},{"t":18.1,"v":0.22},{"t":22.59,"v":0.22},{"t":22.99,"v":0.9},{"t":23.7,"v":0.9},{"t":24.0,"v":0.22},{"t":26.55,"v":0.22},{"t":26.95,"v":0.9},{"t":28.5,"v":0.9},{"t":28.8,"v":0.22},{"t":31.8,"v":0.22},{"t":32.2,"v":0.9},{"t":33.0,"v":0.9},{"t":33.3,"v":0.22},{"t":35.2,"v":0.22},{"t":35.6,"v":0.9},{"t":35.6,"v":0.9},{"t":37,"v":0}]}]}'></audio>
+      <audio id="vo1" src="audio/vo1.wav" data-start="0.4" data-duration="4.40" data-track-index="21"></audio>
+      <audio id="vo2" src="audio/vo2.wav" data-start="5.0" data-duration="4.13" data-track-index="21"></audio>
       <audio id="vo3" src="audio/vo3.wav" data-start="9.4" data-duration="1.43" data-track-index="21"></audio>
-      <audio id="vo4" src="audio/vo4.wav" data-start="11.3" data-duration="1.35" data-track-index="21"></audio>
+      <audio id="vo4" src="audio/vo4.wav" data-start="11.3" data-duration="1.34" data-track-index="21"></audio>
       <audio id="vo5" src="audio/vo5.wav" data-start="13.0" data-duration="4.63" data-track-index="21"></audio>
-      <audio id="vo6" src="audio/vo6.wav" data-start="18.2" data-duration="4.50" data-track-index="21"></audio>
-      <audio id="vo7" src="audio/vo7.wav" data-start="24.1" data-duration="2.59" data-track-index="21"></audio>
-      <audio id="vo8" src="audio/vo8.wav" data-start="28.8" data-duration="3.01" data-track-index="21"></audio>
+      <audio id="vo6" src="audio/vo6.wav" data-start="18.1" data-duration="4.49" data-track-index="21"></audio>
+      <audio id="vo7" src="audio/vo7.wav" data-start="24.0" data-duration="2.55" data-track-index="21"></audio>
+      <audio id="vo8" src="audio/vo8.wav" data-start="28.8" data-duration="3.00" data-track-index="21"></audio>
       <audio id="vo9" src="audio/vo9.wav" data-start="33.3" data-duration="1.90" data-track-index="21"></audio>
       <audio id="sx1" src="audio/ping.wav" data-start="5.0" data-volume="0.5" data-duration="0.60" data-track-index="22"></audio>
       <audio id="sx2" src="audio/ping.wav" data-start="6.6" data-volume="0.5" data-duration="0.60" data-track-index="22"></audio>
@@ -194,8 +228,9 @@
       // clock ticks
       document.getElementById("ticks").innerHTML = [...Array(12)].map((_, i) => `<line x1="0" y1="-132" x2="0" y2="${i % 3 ? -122 : -112}" stroke="#141414" stroke-width="${i % 3 ? 3 : 6}" transform="rotate(${i * 30})"/>`).join("");
       // filler tiles (deterministic)
-      const F = [[150, 1220, 260, "iv"], [560, 1130, 200, "bk"], [1590, 140, 220, "iv"], [2640, 260, 240, "bk"], [2650, 1320, 300, "iv"], [1540, 1460, 170, "gd"], [200, 1560, 280, "bk"], [560, 2380, 240, "iv"], [1560, 2480, 260, "iv"], [2700, 2400, 200, "bk"], [1000, 120, 220, "iv"], [2700, 1860, 180, "gd"], [120, 160, 300, "bk"], [520, 1380, 150, "iv"], [1560, 1700, 220, "bk"], [250, 2000, 220, "iv"]];
+      const F = [[150, 1220, 260, "iv"], [1590, 140, 220, "iv"], [2640, 260, 240, "bk"], [560, 2380, 240, "iv"], [2700, 2400, 200, "bk"], [1000, 120, 220, "iv"], [2700, 1860, 180, "gd"], [120, 160, 300, "bk"], [520, 1380, 150, "iv"], [250, 2000, 220, "iv"]];
       document.getElementById("fill").innerHTML = F.map(([x, y, s, c]) => `<div class="t ${c}" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px"></div>`).join("");
+      document.getElementById("calg").innerHTML = [...Array(28)].map((_, i) => { const d = i + 1, on = d >= 17 && d <= 19; return `<div style="height:26px;border-radius:8px;font-size:16px;font-weight:700;display:grid;place-items:center;${on ? "background:#a8803f;color:#fff" : "color:#6b6255"}">${d}</div>`; }).join("");
       // iso cars in spec tiles
       const cars = [Object.assign({}, GOLF, { color: "#eef0f3", rim: "#c9ced8" }), Object.assign({}, BMW, { color: "#1e3d35", rim: "#3a3f4a" }), Object.assign({}, GOLF, { color: "#1a1b20", rim: "#2c3038" })];
       cars.forEach((o, i) => (document.getElementById("ic" + (i + 1)).innerHTML = car("k" + i, o).replace("<svg ", '<svg style="width:100%;height:auto;display:block;overflow:visible" ')));
@@ -217,42 +252,31 @@
 
       const tl = gsap.timeline({ paused: true });
       // ---- camera: [time, duration, cx, cy, scale, rotZ, rotX, ease]
-      const SHOTS = [
-        [0, 0, 1450, 1350, 0.3, -10, 22],
-        [0.2, 1.7, 470, 790, 0.92, -4, 12, "power3.inOut"],
-        [1.9, 2.7, 520, 760, 1.02, -1, 9, "sine.inOut"],
-        [4.6, 0.9, 1250, 900, 0.95, 3, 8, "power3.inOut"],
-        [5.5, 3.7, 1250, 860, 1.04, 1, 6, "sine.inOut"],
-        [9.2, 0.6, 1250, 1100, 1.22, 0, 4, "power2.inOut"],
-        [9.8, 1.1, 1250, 1120, 1.27, -1, 4, "sine.inOut"],
-        [10.9, 1.0, 2000, 1350, 0.4, -7, 16, "power3.inOut"],
-        [11.9, 0.9, 2040, 1330, 0.43, -5, 14, "sine.inOut"],
-        [12.8, 0.8, 2050, 800, 1.05, -3, 8, "power3.inOut"],
-        [13.6, 1.6, 2060, 770, 1.12, -1, 7, "sine.inOut"],
-        [15.2, 0.7, 2440, 860, 1.05, 4, 10, "power3.inOut"],
-        [15.9, 1.6, 2450, 830, 1.1, 2, 8, "sine.inOut"],
-        [17.5, 0.6, 2050, 1900, 1.05, 3, 8, "power3.inOut"],
-        [18.1, 1.6, 2050, 1880, 1.09, 1, 7, "sine.inOut"],
-        [19.75, 0.25, 2050, 1880, 1.18, 0, 6, "power2.out"],
-        [20.0, 1.55, 2040, 1900, 1.13, -1, 7, "sine.inOut"],
-        [21.6, 0.25, 2060, 1900, 1.22, 1, 6, "power2.out"],
-        [21.85, 0.85, 2050, 1910, 1.16, 1, 7, "sine.inOut"],
-        [22.7, 0.6, 2450, 1950, 1.02, -4, 10, "power3.inOut"],
-        [23.3, 0.6, 1250, 2000, 1.05, -3, 8, "power3.inOut"],
-        [23.9, 2.2, 1240, 1980, 1.11, -1, 7, "sine.inOut"],
-        [26.1, 0.7, 840, 2000, 1.05, 3, 10, "power3.inOut"],
-        [26.8, 1.4, 850, 1980, 1.1, 1, 8, "sine.inOut"],
-        [28.2, 1.4, 1450, 1450, 0.31, -9, 20, "power3.inOut"],
-        [29.6, 7.4, 1450, 1400, 0.36, -4, 16, "sine.inOut"],
+      const K = [
+        [0, 1450, 1350, 0.3, -10, 22], [1.3, 520, 780, 0.9, -4, 12], [2.9, 880, 900, 0.82, -1, 10], [4.4, 1250, 880, 1.0, 2, 7],
+        [7.0, 1250, 860, 1.05, 1, 6], [9.6, 1250, 1080, 1.2, 0, 4], [10.8, 1260, 1100, 1.22, -1, 4], [11.9, 1900, 1250, 0.45, -6, 15],
+        [13.2, 2060, 800, 1.05, -3, 8], [14.8, 2080, 790, 1.1, -1, 7], [16.4, 2440, 860, 1.05, 3, 9], [17.6, 2300, 1350, 0.8, 2, 10],
+        [18.6, 2050, 1880, 1.06, 1, 7], [20.6, 2040, 1900, 1.12, -1, 7], [22.4, 2430, 1950, 1.02, -3, 9], [24.0, 1250, 2000, 1.05, -3, 8],
+        [26.0, 1240, 1980, 1.1, -1, 7], [27.4, 860, 2000, 1.05, 3, 10], [29.4, 1450, 1450, 0.31, -9, 20], [37, 1450, 1380, 0.37, -4, 16],
       ];
-      tl.set("#world", { x: -SHOTS[0][2], y: -SHOTS[0][3] }, 0);
-      tl.set("#cam", { scale: SHOTS[0][4], rotation: SHOTS[0][5], rotationX: SHOTS[0][6] }, 0);
-      SHOTS.slice(1).forEach(([t, d, cx, cy, s, rz, rx, e]) => {
-        tl.to("#world", { x: -cx, y: -cy, duration: d, ease: e }, t);
-        tl.to("#cam", { scale: s, rotation: rz, rotationX: rx, duration: d, ease: e }, t);
-      });
-      // motion blur on the fast moves
-      [0.2, 4.6, 10.9, 12.8, 15.2, 17.5, 22.7, 23.3, 26.1, 28.2].forEach((t) => tl.fromTo("#world", { filter: "blur(0px)" }, { filter: "blur(5px)", duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, t + 0.1));
+      // time-parametric cubic Hermite (Catmull-Rom tangents): continuous velocity, no stops or jerks
+      const M = K.map((k, i) => k.map((v, j) => (j === 0 || i === 0 || i === K.length - 1 ? 0 : (K[i + 1][j] - K[i - 1][j]) / (K[i + 1][0] - K[i - 1][0]))));
+      function camAt(t) {
+        let i = 0;
+        while (i < K.length - 2 && t > K[i + 1][0]) i++;
+        const a = K[i], b = K[i + 1], h = b[0] - a[0], u = Math.min(1, Math.max(0, (t - a[0]) / h));
+        const h00 = 2 * u ** 3 - 3 * u ** 2 + 1, h10 = u ** 3 - 2 * u ** 2 + u, h01 = -2 * u ** 3 + 3 * u ** 2, h11 = u ** 3 - u ** 2;
+        return a.map((_, j) => h00 * a[j] + h10 * h * M[i][j] + h01 * b[j] + h11 * h * M[i + 1][j]);
+      }
+      const W = document.getElementById("world"), CM = document.getElementById("cam"), clock = { t: 0 };
+      const applyCam = () => {
+        const [, cx, cy, sc, rz, rx] = camAt(clock.t);
+        W.style.transform = `translate(${-cx}px, ${-cy}px)`;
+        CM.style.transform = `rotateX(${rx}deg) rotate(${rz}deg) scale(${sc})`;
+      };
+      applyCam();
+      tl.fromTo(clock, { t: 0 }, { t: 37, duration: 37, ease: "none", onUpdate: applyCam }, 0);
+      tl.fromTo("#route", { attr: { "stroke-dashoffset": 320 } }, { attr: { "stroke-dashoffset": 0 }, duration: 2.5, ease: "power2.inOut" }, 10.6);
 
       // ---- captions (word-by-word blur in / out)
       CAPS.forEach(([a, b], i) => {
@@ -296,7 +320,7 @@
       tl.to("#cta", { opacity: 1, duration: 0.5, ease: "power2.out" }, 30.4);
       tl.fromTo("#cta", { y: 60, scale: 0.9 }, { y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 30.4);
       tl.to("#cta", { opacity: 0, duration: 0.3 }, 32.4);
-      tl.to("#world", { filter: "blur(16px)", duration: 1.0, ease: "power2.inOut" }, 32.4);
+      tl.fromTo("#world", { filter: "blur(0px)" }, { filter: "blur(16px)", duration: 1.0, ease: "power2.inOut", immediateRender: false }, 32.4);
       tl.to("#veil", { opacity: 1, duration: 0.9 }, 32.5);
       tl.to("#end", { opacity: 1, duration: 0.1 }, 32.7);
       tl.fromTo("#end .mono", { opacity: 0, scale: 1.3, filter: "blur(12px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 32.7);

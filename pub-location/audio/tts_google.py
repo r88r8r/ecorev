@@ -14,6 +14,6 @@ LINES = open(os.path.join(os.path.dirname(__file__), "script.txt"), encoding="ut
 for i, line in enumerate(LINES, 1):
     inp = {"text": line} if TIER.startswith("Chirp") else {"ssml": "<speak>" + line + "</speak>"}
     r = call("text:synthesize", {"input": inp, "voice": {"languageCode": "fr-FR", "name": voice},
-        "audioConfig": {"audioEncoding": "LINEAR16", "sampleRateHertz": 48000, "speakingRate": 1.05}})
+        "audioConfig": {"audioEncoding": "LINEAR16", "sampleRateHertz": 48000, "speakingRate": float(os.environ.get("RATE", "1.0"))}})
     open(os.path.join(os.path.dirname(__file__), f"vo{i}.wav"), "wb").write(base64.b64decode(r["audioContent"]))
     print(f"vo{i}.wav ok")
