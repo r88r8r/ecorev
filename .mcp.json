@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "voix-off-google": {
+      "command": "python",
+      "args": ["C:\\VoixOff\\google_tts_server.py"],
+      "env": {
+        "GOOGLE_TTS_API_KEY": "${GOOGLE_TTS_API_KEY}"
+      }
+    }
+  }
+}
