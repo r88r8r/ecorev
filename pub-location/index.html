@@ -8,188 +8,168 @@
     <style>
       @font-face { font-family: "Inter"; font-weight: 500; src: url("fonts/inter-latin-500-normal.woff2") format("woff2"); }
       @font-face { font-family: "Inter"; font-weight: 700; src: url("fonts/inter-latin-700-normal.woff2") format("woff2"); }
-      @font-face { font-family: "Anton"; font-weight: 400; src: url("fonts/anton-latin-400-normal.woff2") format("woff2"); }
-      @font-face { font-family: "Chakra Petch"; font-weight: 500; src: url("fonts/chakra-petch-latin-500-normal.woff2") format("woff2"); }
-      @font-face { font-family: "Chakra Petch"; font-weight: 700; src: url("fonts/chakra-petch-latin-700-normal.woff2") format("woff2"); }
-      :root { --mag: #ff2e88; --org: #ff8a1f; --yel: #ffd23f; --cyan: #19e3ff; --vio: #7b3dff; --gold: #f2c46d; }
-      body { margin: 0; background: #07040f; color: #fff; font-family: "Inter", sans-serif; }
-      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(120% 75% at 50% 45%, #1e0c40 0%, #0d0620 55%, #05030b 100%); }
-      .blob { position: absolute; width: 1100px; height: 1100px; border-radius: 50%; }
-      #grid { position: absolute; left: -200px; top: -200px; width: 1480px; height: 2400px; opacity: 0.14; }
-      #speed { position: absolute; left: -600px; top: -300px; width: 2400px; height: 2600px; transform: rotate(30deg); }
-      .sl { position: absolute; left: 0; height: 5px; border-radius: 3px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent); }
-      .clip { position: absolute; inset: 0; }
-      .wrap { position: absolute; inset: 0; }
-      .grad { background: linear-gradient(100deg, var(--mag), var(--org) 45%, var(--yel) 70%, var(--cyan)); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
-      .kin { position: absolute; left: 0; right: 0; text-align: center; font-family: "Anton", sans-serif; font-size: 132px; line-height: 0.95; text-transform: uppercase; }
-      .kin span { display: block; }
-      .chroma { text-shadow: 5px 0 rgba(255, 46, 136, 0.75), -5px 0 rgba(25, 227, 255, 0.75); }
-      .tagline { position: absolute; left: 0; right: 0; text-align: center; font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: 12px; color: var(--cyan); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("fonts/inter-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Bodoni Moda"; font-weight: 400; src: url("fonts/bodoni-moda-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Bodoni Moda"; font-weight: 700; src: url("fonts/bodoni-moda-latin-700-normal.woff2") format("woff2"); }
+      :root { --gold: #a8803f; --gold2: #d9bf8c; --ink: #141414; --cream: #f6f2ea; }
+      body { margin: 0; background: #e8e2d8; color: var(--ink); font-family: "Inter", sans-serif; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(120% 80% at 50% 40%, #f4f0e8 0%, #e6dfd3 60%, #d3c9b8 100%); }
+      #rig { position: absolute; inset: 0; perspective: 2600px; }
+      #cam { position: absolute; left: 540px; top: 1010px; width: 0; height: 0; transform-style: preserve-3d; }
+      #world { position: absolute; left: 0; top: 0; width: 3000px; height: 2800px; }
+      .t { position: absolute; border-radius: 46px; box-shadow: 0 34px 70px rgba(70, 52, 28, 0.2), 0 8px 18px rgba(70, 52, 28, 0.14); overflow: hidden; }
+      .iv { background: linear-gradient(160deg, #fdfbf7, #ebe4d8); }
+      .bk { background: linear-gradient(160deg, #222226, #0b0b0c); color: #f3ede2; }
+      .gd { background: linear-gradient(135deg, #e6cf9f, #a8803f); }
+      .gr { background: linear-gradient(160deg, #1d3a32, #0d1f1a); color: #f3ede2; }
+      .bod { font-family: "Bodoni Moda", serif; }
+      .lbl { font-size: 26px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; }
 
-      /* Phone */
-      #stage { position: absolute; left: 0; top: 420px; width: 1080px; height: 1400px; perspective: 2200px; }
-      #phone { position: absolute; left: 280px; top: 60px; width: 520px; height: 1060px; transform-style: preserve-3d; }
-      .slab { position: absolute; inset: 0; border-radius: 76px; background: #1a1230; box-shadow: inset 0 0 0 3px #5b3dff; }
-      .screen { position: absolute; inset: 0; border-radius: 76px; background: #0d0a18; border: 12px solid #000; box-shadow: 0 0 0 3px var(--mag), 0 0 50px rgba(255, 46, 136, 0.55), 0 0 120px rgba(25, 227, 255, 0.25); overflow: hidden; box-sizing: border-box; }
-      .back { position: absolute; inset: 0; border-radius: 76px; backface-visibility: hidden; background: linear-gradient(140deg, var(--mag), var(--vio) 50%, var(--cyan)); }
-      .back .cam { position: absolute; left: 40px; top: 40px; width: 170px; height: 170px; border-radius: 44px; background: #0a0612; }
-      .back .logo { position: absolute; left: 0; right: 0; top: 440px; text-align: center; font-family: "Anton", sans-serif; font-size: 130px; color: #fff; }
+      /* phone */
+      .screen { position: absolute; inset: 0; border-radius: 46px; background: #0c0c0e; border: 12px solid #000; box-sizing: border-box; overflow: hidden; color: #f3ede2; }
       .island { position: absolute; left: 50%; top: 18px; width: 150px; height: 42px; margin-left: -75px; border-radius: 22px; background: #000; }
       .status { position: absolute; left: 44px; right: 44px; top: 22px; display: flex; justify-content: space-between; font-weight: 700; font-size: 25px; }
-      .chathead { position: absolute; left: 0; right: 0; top: 80px; height: 120px; display: flex; align-items: center; gap: 18px; padding: 0 28px; background: #150f26; border-bottom: 1px solid #2d2350; }
-      .avatar { width: 78px; height: 78px; border-radius: 50%; background: linear-gradient(135deg, var(--mag), var(--org)); display: grid; place-items: center; font-family: "Anton", sans-serif; font-size: 32px; }
-      .who b { display: block; font-family: "Chakra Petch", sans-serif; font-size: 30px; }
-      .who i { display: block; font-style: normal; font-size: 21px; color: #4dffa6; }
+      .chathead { position: absolute; left: 0; right: 0; top: 80px; height: 120px; display: flex; align-items: center; gap: 18px; padding: 0 28px; background: #151517; border-bottom: 1px solid #2a2620; }
+      .avatar { width: 78px; height: 78px; border-radius: 50%; background: linear-gradient(135deg, #e6cf9f, #a8803f); color: #141414; display: grid; place-items: center; font-family: "Bodoni Moda", serif; font-weight: 700; font-size: 32px; }
+      .who b { display: block; font-size: 29px; }
+      .who i { display: block; font-style: normal; font-size: 21px; color: #9fd8b0; }
       .bubble { position: absolute; max-width: 350px; padding: 20px 24px; border-radius: 28px; font-size: 26px; line-height: 1.32; font-weight: 500; }
-      .me { right: 22px; background: linear-gradient(135deg, var(--mag), var(--org)); border-bottom-right-radius: 8px; box-shadow: 0 10px 30px rgba(255, 46, 136, 0.35); }
-      .them { left: 22px; background: #1f1836; border: 1px solid #3a2d6a; border-bottom-left-radius: 8px; }
-      .them b { color: var(--cyan); }
-      .typing { position: absolute; left: 22px; width: 110px; height: 60px; border-radius: 30px; background: #1f1836; display: flex; align-items: center; justify-content: center; gap: 10px; }
-      .typing span { width: 13px; height: 13px; border-radius: 50%; background: var(--cyan); display: block; }
-      .inputbar { position: absolute; left: 22px; right: 22px; bottom: 28px; height: 76px; border-radius: 38px; background: #181228; color: #8c84a8; font-size: 24px; display: flex; align-items: center; padding-left: 30px; }
-      .notif { position: absolute; left: -50px; top: -30px; width: 620px; height: 128px; border-radius: 32px; background: rgba(250, 248, 255, 0.95); color: #120b24; display: flex; align-items: center; gap: 22px; padding: 0 26px; box-sizing: border-box; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(255, 46, 136, 0.6); }
-      .notif .ic { width: 72px; height: 72px; border-radius: 18px; background: linear-gradient(135deg, var(--mag), var(--org)); display: grid; place-items: center; flex: none; font-family: "Anton", sans-serif; font-size: 28px; color: #fff; }
-      .notif b { display: block; font-size: 27px; }
-      .notif i { display: block; font-style: normal; font-size: 23px; color: #5a5175; }
-      #burst { position: absolute; left: 460px; top: 860px; width: 0; height: 0; }
-      .ring { opacity: 0; position: absolute; left: -150px; top: -150px; width: 300px; height: 300px; border-radius: 50%; border: 6px solid var(--cyan); box-sizing: border-box; }
-      .pt { opacity: 0; position: absolute; left: -10px; top: -10px; width: 20px; height: 20px; border-radius: 4px; }
-      .badge { position: absolute; left: -140px; top: -140px; width: 280px; height: 280px; border-radius: 50%; background: linear-gradient(135deg, #4dffa6, var(--cyan)); display: grid; place-items: center; box-shadow: 0 0 60px rgba(77, 255, 166, 0.6), 0 40px 80px rgba(0, 0, 0, 0.5); }
-      #pshadow { position: absolute; left: 240px; top: 1470px; width: 600px; height: 90px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 46, 136, 0.45), transparent); }
+      .me { right: 22px; background: linear-gradient(135deg, #ecd7a8, #b48c4c); color: #17120a; border-bottom-right-radius: 8px; }
+      .them { left: 22px; background: #f3efe8; color: #141414; border-bottom-left-radius: 8px; }
+      .them b { color: var(--gold); }
+      .typing { position: absolute; left: 22px; width: 110px; height: 60px; border-radius: 30px; background: #f3efe8; display: flex; align-items: center; justify-content: center; gap: 10px; }
+      .typing span { width: 13px; height: 13px; border-radius: 50%; background: #8a7a5e; display: block; }
+      .sheet { position: absolute; left: 10px; right: 10px; bottom: 10px; height: 520px; border-radius: 40px; background: #f6f2ea; color: #141414; padding: 40px 36px; box-sizing: border-box; }
+      .sheet .row { display: flex; justify-content: space-between; font-size: 25px; padding: 14px 0; border-bottom: 1px solid #e0d8ca; }
+      .ok { position: absolute; left: 50%; bottom: 60px; width: 120px; height: 120px; margin-left: -60px; border-radius: 50%; border: 5px solid var(--gold); display: grid; place-items: center; }
 
-      /* Fleet */
-      .stripe { position: absolute; left: -400px; width: 1900px; height: 150px; }
-      .vcard { position: absolute; left: 310px; top: 220px; width: 460px; height: 818px; perspective: 1600px; }
-      .vin { position: absolute; inset: 0; border-radius: 30px; padding: 6px; opacity: 0; }
-      .vin .inner { position: absolute; inset: 6px; border-radius: 25px; overflow: hidden; background: #000; }
-      .vin video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      .vin .tag { position: absolute; left: 20px; top: 20px; padding: 8px 18px; border-radius: 22px; background: rgba(0, 0, 0, 0.6); font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 3px; }
-      #plat { position: absolute; left: 158px; top: 1060px; width: 765px; }
-      .carw { position: absolute; left: 209px; top: 932px; width: 765px; }
-      .carw svg, .mini svg { width: 100%; height: auto; display: block; overflow: visible; }
-      .label { position: absolute; left: 30px; right: 30px; top: 1470px; text-align: center; }
-      .label .brand { margin-bottom: 12px; font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 32px; letter-spacing: 12px; }
-      .label .name { font-family: "Anton", sans-serif; font-size: 120px; line-height: 1.02; text-transform: uppercase; }
-      .row { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 14px; }
-      .power { font-family: "Anton", sans-serif; font-size: 64px; margin-right: 8px; }
-      .chip { padding: 10px 22px; border-radius: 40px; border: 2px solid rgba(255, 255, 255, 0.35); font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 24px; letter-spacing: 2px; }
-      .count { position: absolute; right: 60px; top: 110px; font-family: "Anton", sans-serif; font-size: 44px; }
-      .mstripe { display: inline-flex; gap: 6px; margin-right: 6px; }
-      .mstripe i { width: 14px; height: 36px; display: block; transform: skewX(-20deg); }
-
-      /* End */
-      .mono { position: absolute; left: 400px; width: 280px; height: 280px; }
-      .mini { position: absolute; width: 460px; }
-      .cta { position: absolute; left: 180px; width: 720px; top: 1610px; height: 116px; border-radius: 58px; background: linear-gradient(100deg, var(--mag), var(--org) 60%, var(--yel)); display: flex; align-items: center; justify-content: center; gap: 18px; font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 40px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 20px 70px rgba(255, 46, 136, 0.55); }
-      .wipe { position: absolute; top: -200px; width: 900px; height: 2400px; left: -1700px; }
+      /* overlay */
+      #topfade { position: absolute; left: 0; right: 0; top: 0; height: 480px; background: linear-gradient(#f2eee6 52%, rgba(242, 238, 230, 0)); }
+      .cap { position: absolute; left: 50px; right: 50px; top: 150px; text-align: center; font-weight: 800; font-size: 70px; letter-spacing: -1.5px; line-height: 1.05; opacity: 0; }
+      .cap g { font-family: "Bodoni Moda", serif; font-weight: 700; color: var(--gold); letter-spacing: 0; }
+      .cap span { display: inline-block; }
+      #cta { position: absolute; left: 230px; width: 620px; top: 1620px; height: 112px; border-radius: 56px; background: #111; color: var(--gold2); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 36px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3); opacity: 0; }
+      #veil { position: absolute; inset: 0; background: rgba(242, 238, 230, 0.78); opacity: 0; }
+      #end { position: absolute; inset: 0; opacity: 0; text-align: center; }
+      #end .mono { position: absolute; left: 0; right: 0; top: 640px; font-family: "Bodoni Moda", serif; font-weight: 700; font-size: 190px; line-height: 1; color: var(--ink); }
+      #end .brand { position: absolute; left: 0; right: 0; top: 860px; font-weight: 800; font-size: 44px; letter-spacing: 18px; }
+      #end .soon { position: absolute; left: 0; right: 0; top: 990px; font-family: "Bodoni Moda", serif; font-weight: 700; font-size: 104px; color: var(--gold); }
+      #end .stay { position: absolute; left: 0; right: 0; top: 1140px; font-weight: 500; font-size: 40px; color: #4a4338; }
+      #end .dots { position: absolute; left: 0; right: 0; top: 1240px; display: flex; justify-content: center; gap: 18px; }
+      #end .dots i { width: 22px; height: 22px; border-radius: 50%; background: var(--gold); display: block; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="37">
-      <div class="blob" id="bl1" style="left: -450px; top: -250px; background: radial-gradient(closest-side, rgba(255, 46, 136, 0.42), transparent)"></div>
-      <div class="blob" id="bl2" style="left: 450px; top: 600px; background: radial-gradient(closest-side, rgba(25, 227, 255, 0.32), transparent)"></div>
-      <div class="blob" id="bl3" style="left: -300px; top: 1250px; background: radial-gradient(closest-side, rgba(255, 138, 31, 0.32), transparent)"></div>
-      <svg id="grid" viewBox="0 0 1480 2400">
-        <defs>
-          <pattern id="iso" width="138.56" height="80" patternUnits="userSpaceOnUse">
-            <path d="M0 40 L69.28 0 L138.56 40 L69.28 80 Z" fill="none" stroke="#19e3ff" stroke-width="1.2" />
-          </pattern>
-        </defs>
-        <rect width="1480" height="2400" fill="url(#iso)" />
-      </svg>
-      <div id="speed"></div>
+      <div id="rig">
+        <div id="cam">
+          <div id="world">
+            <!-- fillers -->
+            <div id="fill"></div>
 
-      <!-- SCENE 1 -->
-      <section id="s1" class="clip" data-start="0" data-duration="11.4" data-track-index="1">
-        <div class="tagline" id="k1" style="top: 120px">HC LUXURY · LOCATION</div>
-        <div class="kin" id="t1" style="top: 170px"><span>Votre voiture</span><span class="grad chroma">en 1 message</span></div>
-        <div id="pshadow"></div>
-        <div id="stage">
-          <div id="phone">
-            <div class="back" style="transform: translateZ(-22px) rotateY(180deg)"><div class="cam"></div><div class="logo">HC</div></div>
-            <div id="slabs"></div>
-            <div class="screen" style="transform: translateZ(22px)">
-              <div class="island"></div>
-              <div class="status"><span>9:41</span><span>5G</span></div>
-              <div class="chathead">
-                <div class="avatar">HC</div>
-                <div class="who"><b>HC Luxury</b><i>en ligne</i></div>
+            <!-- A : widgets -->
+            <div class="t iv" style="left: 140px; top: 510px; width: 380px; height: 380px">
+              <svg width="380" height="380" viewBox="-190 -190 380 380">
+                <circle r="150" fill="#fff" stroke="#e3dccf" stroke-width="2" />
+                <g id="ticks"></g>
+                <line id="hh" x1="0" y1="0" x2="0" y2="-80" stroke="#141414" stroke-width="12" stroke-linecap="round" />
+                <line id="mh" x1="0" y1="0" x2="0" y2="-120" stroke="#141414" stroke-width="8" stroke-linecap="round" />
+                <line id="sh" x1="0" y1="20" x2="0" y2="-130" stroke="#a8803f" stroke-width="3" />
+                <circle r="9" fill="#a8803f" />
+              </svg>
+            </div>
+            <div class="t bk" style="left: 570px; top: 410px; width: 300px; height: 300px; padding: 34px; box-sizing: border-box">
+              <div class="lbl" style="color: #d9bf8c">Vendredi</div>
+              <div style="font-weight: 800; font-size: 150px; line-height: 1">17</div>
+              <div style="font-size: 26px; color: #b8ae9e">octobre</div>
+            </div>
+            <div class="t gr" style="left: 570px; top: 750px; width: 300px; height: 300px; padding: 34px; box-sizing: border-box">
+              <div style="font-size: 28px; font-weight: 700">Paris</div>
+              <div style="font-weight: 500; font-size: 110px; line-height: 1.05">18°</div>
+              <div style="font-size: 24px; color: #b9cfc6">Ensoleillé · route libre</div>
+            </div>
+            <div class="t gd" style="left: 240px; top: 940px; width: 180px; height: 180px; display: grid; place-items: center">
+              <svg width="96" height="96" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="16" rx="4" fill="#141414" /><circle cx="12" cy="7" r="1.6" fill="#d9bf8c" /><circle cx="12" cy="12" r="1.6" fill="#d9bf8c" /><path d="M12 18v4" stroke="#141414" stroke-width="2" /></svg>
+            </div>
+
+            <!-- B : phone -->
+            <div class="t" id="phoneT" style="left: 990px; top: 370px; width: 520px; height: 1060px; background: #000">
+              <div class="screen">
+                <div class="island"></div>
+                <div class="status"><span>18:02</span><span>5G</span></div>
+                <div class="chathead">
+                  <div class="avatar">HC</div>
+                  <div class="who"><b>HC Luxury</b><i>en ligne</i></div>
+                </div>
+                <div class="bubble me" id="b1" style="top: 236px">Bonjour ! La Golf 8.5 R blanche est disponible ce week-end ?</div>
+                <div class="typing" id="ty1" style="top: 420px"><span></span><span></span><span></span></div>
+                <div class="bubble them" id="b2" style="top: 420px">Oui ! Elle est libre <b>du vendredi 10h au dimanche 18h.</b></div>
+                <div class="bubble me" id="b3" style="top: 624px">Parfait, je prends ces dates !</div>
+                <div class="typing" id="ty2" style="top: 740px"><span></span><span></span><span></span></div>
+                <div class="bubble them" id="b4" style="top: 740px"><b>Parfait.</b> Votre réservation est confirmée.</div>
+                <div class="sheet" id="sheet">
+                  <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 18px"><div class="avatar" style="width: 60px; height: 60px; font-size: 24px">HC</div><b style="font-size: 30px">HC Luxury</b></div>
+                  <div class="row"><span>Véhicule</span><b>Golf 8.5 R blanche</b></div>
+                  <div class="row"><span>Dates</span><b>Ven 10h → Dim 18h</b></div>
+                  <div class="ok" id="ok"><svg width="70" height="70" viewBox="0 0 24 24"><path id="chk" d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#a8803f" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="24" stroke-dashoffset="24" /></svg></div>
+                </div>
               </div>
-              <div class="bubble me" id="b1" style="top: 236px">Bonjour ! La Golf 8.5 R blanche est disponible ce week-end ?</div>
-              <div class="typing" id="ty1" style="top: 420px"><span></span><span></span><span></span></div>
-              <div class="bubble them" id="b2" style="top: 420px">Oui ! Elle est libre <b>du vendredi 10h au dimanche 18h.</b></div>
-              <div class="bubble me" id="b3" style="top: 624px">Parfait, je prends ces dates !</div>
-              <div class="typing" id="ty2" style="top: 740px"><span></span><span></span><span></span></div>
-              <div class="bubble them" id="b4" style="top: 740px"><b>Parfait.</b> Votre réservation est confirmée. À vendredi.</div>
-              <div class="inputbar">Message…</div>
             </div>
-            <div style="position: absolute; inset: 0; transform: translateZ(110px); transform-style: preserve-3d">
-              <div class="notif" id="notif"><div class="ic">HC</div><div><b>Nouveau message</b><i>« La Golf 8.5 R blanche… »</i></div></div>
+
+            <!-- C : Golf blanche -->
+            <div class="t bk" style="left: 1820px; top: 391px; width: 460px; height: 818px">
+              <video id="vid1" src="media/golf-blanche.mp4" muted playsinline data-start="13.0" data-duration="3.7" data-track-index="10" style="width: 100%; height: 100%; object-fit: cover"></video>
             </div>
-            <div style="position: absolute; inset: 0; transform: translateZ(160px); transform-style: preserve-3d">
-              <div id="burst">
-                <div class="ring" id="rg1"></div>
-                <div class="ring" id="rg2" style="border-color: #ff2e88"></div>
-                <div id="pts"></div>
-                <div class="badge" id="badge"><svg width="150" height="150" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#08121a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
-              </div>
+            <div class="t bk" style="left: 2310px; top: 480px; width: 300px; height: 320px; padding: 34px; box-sizing: border-box">
+              <div class="lbl" style="color: #d9bf8c">Puissance</div>
+              <div class="bod" style="font-weight: 700; font-size: 128px; line-height: 1.1; color: #e6cf9f" id="p1">0</div>
+              <div style="font-size: 30px; font-weight: 700">chevaux</div>
             </div>
+            <div class="t iv" style="left: 2310px; top: 830px; width: 300px; height: 300px; display: grid; place-items: center"><div id="ic1" style="width: 270px"></div></div>
+            <div class="t gd" style="left: 2310px; top: 1160px; width: 300px; height: 120px; display: grid; place-items: center"><b class="lbl" style="color: #141414">4MOTION</b></div>
+
+            <!-- D : BMW -->
+            <div class="t bk" style="left: 1820px; top: 1491px; width: 460px; height: 818px">
+              <video id="vid2a" src="media/bmw.mp4" muted playsinline data-start="17.9" data-duration="1.85" data-media-start="2.0" data-track-index="11" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
+              <video id="vid2b" src="media/bmw.mp4" muted playsinline data-start="19.75" data-duration="1.85" data-media-start="7.0" data-track-index="12" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
+              <video id="vid2c" src="media/bmw.mp4" muted playsinline data-start="21.6" data-duration="1.9" data-media-start="15.5" data-track-index="13" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
+            </div>
+            <div class="t bk" style="left: 2310px; top: 1580px; width: 300px; height: 320px; padding: 34px; box-sizing: border-box">
+              <div class="lbl" style="color: #d9bf8c">Puissance</div>
+              <div class="bod" style="font-weight: 700; font-size: 128px; line-height: 1.1; color: #e6cf9f" id="p2">0</div>
+              <div style="font-size: 30px; font-weight: 700">chevaux</div>
+            </div>
+            <div class="t iv" style="left: 2310px; top: 1930px; width: 300px; height: 300px; display: grid; place-items: center"><div id="ic2" style="width: 270px"></div></div>
+            <div class="t bk" style="left: 2310px; top: 2260px; width: 300px; height: 120px; display: flex; align-items: center; justify-content: center; gap: 8px"><i style="width: 12px; height: 40px; background: #5ab4ff; transform: skewX(-20deg)"></i><i style="width: 12px; height: 40px; background: #2f3fff; transform: skewX(-20deg)"></i><i style="width: 12px; height: 40px; background: #e8323c; transform: skewX(-20deg)"></i><b class="lbl" style="margin-left: 14px">Pack M</b></div>
+
+            <!-- E : Golf noire -->
+            <div class="t bk" style="left: 1020px; top: 1591px; width: 460px; height: 818px">
+              <video id="vid3" src="media/golf-noire.mp4" muted playsinline data-start="23.7" data-duration="4.05" data-track-index="14" style="width: 100%; height: 100%; object-fit: cover"></video>
+            </div>
+            <div class="t bk" style="left: 690px; top: 1680px; width: 300px; height: 320px; padding: 34px; box-sizing: border-box">
+              <div class="lbl" style="color: #d9bf8c">Puissance</div>
+              <div class="bod" style="font-weight: 700; font-size: 128px; line-height: 1.1; color: #e6cf9f" id="p3">0</div>
+              <div style="font-size: 30px; font-weight: 700">chevaux</div>
+            </div>
+            <div class="t iv" style="left: 690px; top: 2030px; width: 300px; height: 300px; display: grid; place-items: center"><div id="ic3" style="width: 270px"></div></div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Racing stripes behind the footage -->
-      <div class="stripe" id="st1" style="top: 380px"></div>
-      <div class="stripe" id="st2" style="top: 560px; height: 60px"></div>
+      <div id="topfade"></div>
+      <div id="caps"></div>
+      <div id="cta">Réservez par message&nbsp;→</div>
+      <div id="veil"></div>
+      <div id="end">
+        <div class="mono">HC</div>
+        <div class="brand">LUXURY</div>
+        <div class="soon">Coming soon</div>
+        <div class="stay">Restez branchés.</div>
+        <div class="dots"><i></i><i></i><i></i></div>
+      </div>
 
-      <!-- Real footage cards (root level: timed videos can't sit inside a timed section) -->
-      <div class="vcard"><div class="vin" id="v1i" style="background: linear-gradient(160deg, #19e3ff, #7b3dff)"><div class="inner"><video id="vid1" src="media/golf-blanche.mp4" muted playsinline data-start="13.0" data-duration="3.7" data-track-index="10"></video></div><div class="tag" style="color: #19e3ff">● LIVE · GOLF 8.5 R</div></div></div>
-      <div class="vcard"><div class="vin" id="v2i" style="background: linear-gradient(160deg, #2f6bff, #7b3dff 50%, #ff2e4d)"><div class="inner"><video id="vid2" src="media/bmw.mp4" muted playsinline data-start="18.1" data-duration="5.0" data-media-start="6.5" data-track-index="11"></video></div><div class="tag" style="color: #8fb0ff">● LIVE · BMW 420D</div></div></div>
-      <div class="vcard"><div class="vin" id="v3i" style="background: linear-gradient(160deg, #ff2e88, #ff8a1f)"><div class="inner"><video id="vid3" src="media/golf-noire.mp4" muted playsinline data-start="24.0" data-duration="4.05" data-track-index="12"></video></div><div class="tag" style="color: #ff8a1f">● LIVE · GOLF 8.5 R</div></div></div>
-
-      <!-- SCENE 2 -->
-      <section id="s2" class="clip" data-start="11.0" data-duration="17.6" data-track-index="2">
-        <div class="wrap" id="s2w">
-          <div class="tagline" id="k2" style="top: 120px">LA COLLECTION</div>
-          <div class="kin" id="t2" style="top: 620px"><span>Découvrez</span><span class="grad chroma">la flotte</span></div>
-          <div class="count" id="cnt"><span class="grad" id="cntn">01</span>/03</div>
-          <svg id="plat" viewBox="-580 -330 1160 660"></svg>
-          <div class="carw" id="c1"></div>
-          <div class="carw" id="c2"></div>
-          <div class="carw" id="c3"></div>
-          <div class="label" id="l1"><div class="brand" style="color: #19e3ff">VOLKSWAGEN</div><div class="name">Golf 8.5 R</div><div class="row"><span class="power grad" id="p1">0 CH</span><span class="chip">BLANCHE</span><span class="chip">4MOTION</span></div></div>
-          <div class="label" id="l2"><div class="brand" style="color: #8fb0ff">BMW</div><div class="name">Série 4 · 420d</div><div class="row"><span class="mstripe"><i style="background: #5ab4ff"></i><i style="background: #2f3fff"></i><i style="background: #ff2e4d"></i></span><span class="power grad" id="p2">0 CH</span><span class="chip">PACK M</span><span class="chip">COUPÉ</span></div></div>
-          <div class="label" id="l3"><div class="brand" style="color: #ff8a1f">VOLKSWAGEN</div><div class="name">Golf 8.5 R</div><div class="row"><span class="power grad" id="p3">0 CH</span><span class="chip">NOIRE</span><span class="chip">4MOTION</span></div></div>
-        </div>
-      </section>
-
-      <!-- SCENE 3 -->
-      <section id="s3" class="clip" data-start="28.4" data-duration="4.6" data-track-index="3">
-        <svg class="mono" id="mono" style="top: 140px" viewBox="-150 -150 300 300">
-          <defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff2e88" /><stop offset=".5" stop-color="#ff8a1f" /><stop offset="1" stop-color="#19e3ff" /></linearGradient></defs>
-          <polygon points="0,-135 135,0 0,135 -135,0" fill="none" stroke="url(#mg)" stroke-width="8" />
-          <text x="0" y="34" text-anchor="middle" font-family="Anton" font-size="104" fill="#fff">HC</text>
-        </svg>
-        <div class="kin grad chroma" id="bn" style="top: 450px; font-size: 150px">Luxury</div>
-        <div class="mini" id="m1" style="left: 40px; top: 760px"></div>
-        <div class="mini" id="m2" style="left: 310px; top: 960px"></div>
-        <div class="mini" id="m3" style="left: 580px; top: 1160px"></div>
-        <div class="cta" id="cta"><svg width="46" height="46" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z" fill="#fff" /></svg>Réservez par message</div>
-      </section>
-
-      <!-- SCENE 4 -->
-      <section id="s4" class="clip" data-start="32.8" data-duration="4.2" data-track-index="4">
-        <div class="tagline" id="k4" style="top: 600px">HC LUXURY</div>
-        <div class="kin" id="soon" style="top: 680px; font-size: 210px"><span class="grad chroma">Coming</span><span class="grad chroma">Soon</span></div>
-        <div class="tagline" id="stay" style="top: 1130px; font-size: 52px; letter-spacing: 10px; color: #fff">RESTEZ BRANCHÉS</div>
-      </section>
-
-      <div class="wipe" id="w1" style="background: #ff2e88"></div>
-      <div class="wipe" id="w2" style="background: #ff8a1f"></div>
-      <div class="wipe" id="w3" style="background: #19e3ff"></div>
-
-      <!-- Audio -->
-      <audio id="music" src="audio/music.wav" data-start="0" data-duration="37" data-volume="0.3" data-track-index="20"></audio>
+      <!-- Audio: music (client track, ducked under the voice), Google Chirp3-HD voice-over, sfx -->
+      <audio id="music" src="audio/track.wav" data-start="0" data-duration="37" data-volume="1" data-track-index="20" data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.3,"v":0.9},{"t":0.31,"v":0.9},{"t":0.5,"v":0.22},{"t":4.73,"v":0.22},{"t":5.13,"v":0.9},{"t":5.14,"v":0.9},{"t":5.15,"v":0.22},{"t":9.03,"v":0.22},{"t":9.43,"v":0.9},{"t":9.44,"v":0.9},{"t":9.45,"v":0.22},{"t":10.83,"v":0.22},{"t":11.23,"v":0.9},{"t":11.24,"v":0.9},{"t":11.3,"v":0.22},{"t":12.65,"v":0.22},{"t":13.05,"v":0.9},{"t":13.06,"v":0.9},{"t":13.07,"v":0.22},{"t":17.63,"v":0.22},{"t":18.03,"v":0.9},{"t":18.04,"v":0.9},{"t":18.2,"v":0.22},{"t":22.7,"v":0.22},{"t":23.1,"v":0.9},{"t":23.8,"v":0.9},{"t":24.1,"v":0.22},{"t":26.69,"v":0.22},{"t":27.09,"v":0.9},{"t":28.5,"v":0.9},{"t":28.8,"v":0.22},{"t":31.81,"v":0.22},{"t":32.21,"v":0.9},{"t":33.0,"v":0.9},{"t":33.3,"v":0.22},{"t":35.2,"v":0.22},{"t":35.6,"v":0.9},{"t":35.61,"v":0.9},{"t":37,"v":0}]}]}'></audio>
       <audio id="vo1" src="audio/vo1.wav" data-start="0.5" data-duration="4.23" data-track-index="21"></audio>
       <audio id="vo2" src="audio/vo2.wav" data-start="4.9" data-duration="4.13" data-track-index="21"></audio>
       <audio id="vo3" src="audio/vo3.wav" data-start="9.4" data-duration="1.43" data-track-index="21"></audio>
@@ -199,165 +179,131 @@
       <audio id="vo7" src="audio/vo7.wav" data-start="24.1" data-duration="2.59" data-track-index="21"></audio>
       <audio id="vo8" src="audio/vo8.wav" data-start="28.8" data-duration="3.01" data-track-index="21"></audio>
       <audio id="vo9" src="audio/vo9.wav" data-start="33.3" data-duration="1.90" data-track-index="21"></audio>
-      <audio id="sx1" src="audio/whoosh.wav" data-start="0.0" data-volume="0.7" data-duration="0.90" data-track-index="22"></audio>
-      <audio id="sx2" src="audio/ping.wav" data-start="1.0" data-volume="0.8" data-duration="0.60" data-track-index="22"></audio>
-      <audio id="sx3" src="audio/sent.wav" data-start="2.2" data-volume="0.8" data-duration="0.25" data-track-index="22"></audio>
-      <audio id="sx4" src="audio/ping.wav" data-start="4.4" data-volume="0.8" data-duration="0.60" data-track-index="22"></audio>
-      <audio id="sx5" src="audio/sent.wav" data-start="6.2" data-volume="0.8" data-duration="0.25" data-track-index="22"></audio>
-      <audio id="sx6" src="audio/ping.wav" data-start="9.3" data-volume="0.8" data-duration="0.60" data-track-index="22"></audio>
-      <audio id="sx7" src="audio/chime.wav" data-start="9.7" data-volume="0.9" data-duration="1.80" data-track-index="23"></audio>
-      <audio id="sx8" src="audio/whoosh.wav" data-start="10.6" data-volume="0.8" data-duration="0.90" data-track-index="24"></audio>
-      <audio id="sx9" src="audio/whoosh.wav" data-start="12.5" data-volume="0.7" data-duration="0.90" data-track-index="22"></audio>
-      <audio id="sx10" src="audio/whoosh.wav" data-start="17.6" data-volume="0.7" data-duration="0.90" data-track-index="22"></audio>
-      <audio id="sx11" src="audio/whoosh.wav" data-start="23.5" data-volume="0.7" data-duration="0.90" data-track-index="22"></audio>
-      <audio id="sx12" src="audio/impact.wav" data-start="28.4" data-volume="0.9" data-duration="2.00" data-track-index="23"></audio>
-      <audio id="sx13" src="audio/ping.wav" data-start="30.3" data-volume="0.7" data-duration="0.60" data-track-index="22"></audio>
-      <audio id="sx14" src="audio/impact.wav" data-start="32.8" data-volume="0.9" data-duration="2.00" data-track-index="23"></audio>
-      <audio id="sx15" src="audio/shimmer.wav" data-start="33.0" data-volume="0.9" data-duration="2.50" data-track-index="22"></audio>
+      <audio id="sx1" src="audio/ping.wav" data-start="5.0" data-volume="0.5" data-duration="0.60" data-track-index="22"></audio>
+      <audio id="sx2" src="audio/ping.wav" data-start="6.6" data-volume="0.5" data-duration="0.60" data-track-index="22"></audio>
+      <audio id="sx3" src="audio/sent.wav" data-start="7.8" data-volume="0.5" data-duration="0.25" data-track-index="22"></audio>
+      <audio id="sx4" src="audio/ping.wav" data-start="9.2" data-volume="0.5" data-duration="0.60" data-track-index="22"></audio>
+      <audio id="sx5" src="audio/chime.wav" data-start="9.9" data-volume="0.6" data-duration="1.80" data-track-index="23"></audio>
+      <audio id="sx6" src="audio/whoosh.wav" data-start="10.9" data-volume="0.35" data-duration="0.90" data-track-index="24"></audio>
+      <audio id="sx7" src="audio/whoosh.wav" data-start="28.2" data-volume="0.35" data-duration="0.90" data-track-index="24"></audio>
+      <audio id="sx8" src="audio/shimmer.wav" data-start="32.8" data-volume="0.7" data-duration="2.50" data-track-index="22"></audio>
     </div>
 
     <script src="iso.js"></script>
     <script>
-      document.getElementById("slabs").innerHTML = [...Array(9)].map((_, i) => `<div class="slab" style="transform:translateZ(${-20 + i * 5}px)"></div>`).join("");
-      const COLS = ["#ff2e88", "#ff8a1f", "#ffd23f", "#19e3ff", "#7b3dff", "#4dffa6"];
-      // speed lines (deterministic layout)
-      const SL = 18;
-      document.getElementById("speed").innerHTML = [...Array(SL)].map((_, i) => `<div class="sl" id="sl${i}" style="top:${120 + i * 135}px;width:${260 + ((i * 97) % 380)}px;opacity:${0.25 + ((i * 37) % 60) / 100}"></div>`).join("");
-      // confetti particles
-      document.getElementById("pts").innerHTML = [...Array(16)].map((_, i) => `<div class="pt" id="pt${i}" style="background:${COLS[i % 6]}"></div>`).join("");
-
-      (function () {
-        const q = (s, z) => [P(-s, -s, z), P(s, -s, z), P(s, s, z), P(-s, s, z)];
-        const s = 300, d = 22;
-        const side1 = [P(s, -s, 0), P(s, s, 0), P(s, s, -d), P(s, -s, -d)], side2 = [P(-s, s, 0), P(s, s, 0), P(s, s, -d), P(-s, s, -d)];
-        document.getElementById("plat").innerHTML = poly(side1, "#120a26", 'class="pe" stroke="#19e3ff" stroke-width="2"') + poly(side2, "#1a0f36", 'class="pe" stroke="#19e3ff" stroke-width="2"') + poly(q(s, 0), "#1d1240", 'class="pe" stroke="#19e3ff" stroke-width="4"') + poly(q(s - 40, 0), "none", 'class="pe" stroke="#19e3ff" stroke-opacity=".4" stroke-width="2"');
-      })();
-
-      const cars = [
-        Object.assign({}, GOLF, { color: "#eef0f3", rim: "#c9ced8" }),
-        Object.assign({}, BMW, { color: "#1e3d35", rim: "#3a3f4a" }),
-        Object.assign({}, GOLF, { color: "#1a1b20", rim: "#2c3038" }),
+      // clock ticks
+      document.getElementById("ticks").innerHTML = [...Array(12)].map((_, i) => `<line x1="0" y1="-132" x2="0" y2="${i % 3 ? -122 : -112}" stroke="#141414" stroke-width="${i % 3 ? 3 : 6}" transform="rotate(${i * 30})"/>`).join("");
+      // filler tiles (deterministic)
+      const F = [[150, 1220, 260, "iv"], [560, 1130, 200, "bk"], [1590, 140, 220, "iv"], [2640, 260, 240, "bk"], [2650, 1320, 300, "iv"], [1540, 1460, 170, "gd"], [200, 1560, 280, "bk"], [560, 2380, 240, "iv"], [1560, 2480, 260, "iv"], [2700, 2400, 200, "bk"], [1000, 120, 220, "iv"], [2700, 1860, 180, "gd"], [120, 160, 300, "bk"], [520, 1380, 150, "iv"], [1560, 1700, 220, "bk"], [250, 2000, 220, "iv"]];
+      document.getElementById("fill").innerHTML = F.map(([x, y, s, c]) => `<div class="t ${c}" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px"></div>`).join("");
+      // iso cars in spec tiles
+      const cars = [Object.assign({}, GOLF, { color: "#eef0f3", rim: "#c9ced8" }), Object.assign({}, BMW, { color: "#1e3d35", rim: "#3a3f4a" }), Object.assign({}, GOLF, { color: "#1a1b20", rim: "#2c3038" })];
+      cars.forEach((o, i) => (document.getElementById("ic" + (i + 1)).innerHTML = car("k" + i, o).replace("<svg ", '<svg style="width:100%;height:auto;display:block;overflow:visible" ')));
+      // captions
+      const CAPS = [
+        [0.5, 2.6, "Votre voiture <g>de prestige.</g>"],
+        [2.6, 4.75, "En un <g>seul message.</g>"],
+        [4.9, 7.0, "Vous <g>écrivez.</g>"],
+        [7.0, 9.25, "On vous <g>répond.</g>"],
+        [9.3, 10.95, "C'est <g>réservé.</g>"],
+        [11.2, 12.8, "Découvrez <g>la flotte.</g>"],
+        [13.0, 17.55, "Golf 8.5 R <g>blanche.</g>"],
+        [17.9, 23.3, "BMW 420d <g>Pack M.</g>"],
+        [23.7, 28.1, "Golf 8.5 R <g>noire.</g>"],
+        [28.6, 30.4, "<g>HC Luxury.</g>"],
+        [30.4, 32.5, "Réservez <g>par message.</g>"],
       ];
-      cars.forEach((o, i) => {
-        document.getElementById("c" + (i + 1)).innerHTML = car("k" + i, o);
-        document.getElementById("m" + (i + 1)).innerHTML = car("n" + i, o);
-      });
+      document.getElementById("caps").innerHTML = CAPS.map((c, i) => `<div class="cap" id="cap${i}">${c[2].replace(/<g>(.*?)<\/g>/g, (_, w) => w.split(" ").map((x) => `<span class="w"><g>${x}</g></span>`).join(" ")).split(/(<span class="w">.*?<\/span>)/).map((p) => (p.startsWith("<span") ? p : p.trim().split(" ").filter(Boolean).map((x) => `<span class="w">${x}</span>`).join(" "))).join(" ")}</div>`).join("");
 
       const tl = gsap.timeline({ paused: true });
-      const E = "power3.out", SK = -10;
-      // ambient
-      tl.fromTo("#grid", { y: 0 }, { y: 320, duration: 37, ease: "none" }, 0);
-      [["#bl1", 260, 380], ["#bl2", -320, -260], ["#bl3", 380, -300]].forEach(([b, x, y]) => tl.fromTo(b, { x: 0, y: 0, scale: 1 }, { x, y, scale: 1.25, duration: 37, ease: "sine.inOut" }, 0));
-      for (let i = 0; i < SL; i++) {
-        const d = 0.55 + ((i * 13) % 7) / 10, n = Math.floor(37 / d);
-        tl.fromTo("#sl" + i, { x: -700 }, { x: 2600, duration: d, ease: "none", repeat: n - 1 }, ((i * 0.23) % 1));
-      }
-      // speed-line intensity per section
-      tl.fromTo("#speed", { opacity: 0.35 }, { opacity: 0.12, duration: 2, ease: "power2.out" }, 1.5);
-      [12.6, 17.7, 23.6].forEach((t) => {
-        tl.to("#speed", { opacity: 0.9, duration: 0.25 }, t);
-        tl.to("#speed", { opacity: 0.15, duration: 1.2, ease: "power2.out" }, t + 0.9);
+      // ---- camera: [time, duration, cx, cy, scale, rotZ, rotX, ease]
+      const SHOTS = [
+        [0, 0, 1450, 1350, 0.3, -10, 22],
+        [0.2, 1.7, 470, 790, 0.92, -4, 12, "power3.inOut"],
+        [1.9, 2.7, 520, 760, 1.02, -1, 9, "sine.inOut"],
+        [4.6, 0.9, 1250, 900, 0.95, 3, 8, "power3.inOut"],
+        [5.5, 3.7, 1250, 860, 1.04, 1, 6, "sine.inOut"],
+        [9.2, 0.6, 1250, 1100, 1.22, 0, 4, "power2.inOut"],
+        [9.8, 1.1, 1250, 1120, 1.27, -1, 4, "sine.inOut"],
+        [10.9, 1.0, 2000, 1350, 0.4, -7, 16, "power3.inOut"],
+        [11.9, 0.9, 2040, 1330, 0.43, -5, 14, "sine.inOut"],
+        [12.8, 0.8, 2050, 800, 1.05, -3, 8, "power3.inOut"],
+        [13.6, 1.6, 2060, 770, 1.12, -1, 7, "sine.inOut"],
+        [15.2, 0.7, 2440, 860, 1.05, 4, 10, "power3.inOut"],
+        [15.9, 1.6, 2450, 830, 1.1, 2, 8, "sine.inOut"],
+        [17.5, 0.6, 2050, 1900, 1.05, 3, 8, "power3.inOut"],
+        [18.1, 1.6, 2050, 1880, 1.09, 1, 7, "sine.inOut"],
+        [19.75, 0.25, 2050, 1880, 1.18, 0, 6, "power2.out"],
+        [20.0, 1.55, 2040, 1900, 1.13, -1, 7, "sine.inOut"],
+        [21.6, 0.25, 2060, 1900, 1.22, 1, 6, "power2.out"],
+        [21.85, 0.85, 2050, 1910, 1.16, 1, 7, "sine.inOut"],
+        [22.7, 0.6, 2450, 1950, 1.02, -4, 10, "power3.inOut"],
+        [23.3, 0.6, 1250, 2000, 1.05, -3, 8, "power3.inOut"],
+        [23.9, 2.2, 1240, 1980, 1.11, -1, 7, "sine.inOut"],
+        [26.1, 0.7, 840, 2000, 1.05, 3, 10, "power3.inOut"],
+        [26.8, 1.4, 850, 1980, 1.1, 1, 8, "sine.inOut"],
+        [28.2, 1.4, 1450, 1450, 0.31, -9, 20, "power3.inOut"],
+        [29.6, 7.4, 1450, 1400, 0.36, -4, 16, "sine.inOut"],
+      ];
+      tl.set("#world", { x: -SHOTS[0][2], y: -SHOTS[0][3] }, 0);
+      tl.set("#cam", { scale: SHOTS[0][4], rotation: SHOTS[0][5], rotationX: SHOTS[0][6] }, 0);
+      SHOTS.slice(1).forEach(([t, d, cx, cy, s, rz, rx, e]) => {
+        tl.to("#world", { x: -cx, y: -cy, duration: d, ease: e }, t);
+        tl.to("#cam", { scale: s, rotation: rz, rotationX: rx, duration: d, ease: e }, t);
       });
-      tl.to("#speed", { opacity: 0.8, duration: 0.4 }, 32.8);
-      // colour wipes between scenes
-      const wipe = (t) => ["#w1", "#w2", "#w3"].forEach((w, i) => tl.fromTo(w, { x: 0, skewX: -18 }, { x: 3900, skewX: -18, duration: 0.85, ease: "power3.inOut", immediateRender: false }, t + i * 0.07));
-      ["#w1", "#w2", "#w3"].forEach((w) => tl.set(w, { x: 0, skewX: -18 }, 0));
-      wipe(10.55); wipe(27.95); wipe(32.35);
+      // motion blur on the fast moves
+      [0.2, 4.6, 10.9, 12.8, 15.2, 17.5, 22.7, 23.3, 26.1, 28.2].forEach((t) => tl.fromTo("#world", { filter: "blur(0px)" }, { filter: "blur(5px)", duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, t + 0.1));
 
-      // ---- Scene 1
-      tl.fromTo("#k1", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 0.2);
-      tl.fromTo("#t1 span", { opacity: 0, x: -260, skewX: -30 }, { opacity: 1, x: 0, skewX: SK, duration: 0.8, stagger: 0.14, ease: "expo.out" }, 0.3);
-      tl.fromTo("#t1 .grad", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 9, ease: "none" }, 0.4);
-      tl.fromTo("#phone", { rotationY: -400, rotationX: 30, rotationZ: -12, y: 600, scale: 0.5 }, { rotationY: -20, rotationX: 12, rotationZ: 4, y: 0, scale: 1, duration: 2, ease: "power4.out" }, 0);
-      tl.fromTo("#pshadow", { opacity: 0, scaleX: 0.4 }, { opacity: 1, scaleX: 1, duration: 1.8, ease: E }, 0.2);
-      tl.to("#phone", { rotationY: 16, rotationX: 8, rotationZ: -3, y: -20, duration: 8.4, ease: "sine.inOut" }, 2);
-      tl.to("#pshadow", { x: 30, duration: 8.5, ease: "sine.inOut" }, 2);
-      tl.fromTo("#notif", { opacity: 0, y: -120, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 1.0);
-      tl.to("#notif", { opacity: 0, y: -140, duration: 0.45, ease: "power2.in" }, 2.0);
-      const pop = (sel, t, from) => tl.fromTo(sel, { opacity: 0, scale: 0.5, y: 40, transformOrigin: from }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(2)" }, t);
+      // ---- captions (word-by-word blur in / out)
+      CAPS.forEach(([a, b], i) => {
+        const id = "#cap" + i;
+        tl.set(id, { opacity: 1 }, a);
+        tl.fromTo(id + " .w", { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, stagger: 0.08, ease: "power3.out" }, a);
+        tl.to(id + " .w", { opacity: 0, y: -24, filter: "blur(10px)", duration: 0.3, stagger: 0.03, ease: "power2.in" }, b - 0.32);
+        tl.set(id, { opacity: 0 }, b);
+      });
+
+      // ---- widgets: clock hands sweep
+      tl.fromTo("#mh", { rotation: 0, svgOrigin: "0 0" }, { rotation: 360, svgOrigin: "0 0", duration: 4.5, ease: "power1.inOut" }, 0);
+      tl.fromTo("#hh", { rotation: 150, svgOrigin: "0 0" }, { rotation: 180, svgOrigin: "0 0", duration: 4.5, ease: "power1.inOut" }, 0);
+      tl.fromTo("#sh", { rotation: 0, svgOrigin: "0 0" }, { rotation: 1440, svgOrigin: "0 0", duration: 4.5, ease: "none" }, 0);
+
+      // ---- chat
+      const pop = (sel, t, from) => tl.fromTo(sel, { opacity: 0, scale: 0.6, y: 30, transformOrigin: from }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.6)" }, t);
       const typing = (sel, t, d) => {
         tl.fromTo(sel, { opacity: 0, scale: 0.6, transformOrigin: "0% 100%" }, { opacity: 1, scale: 1, duration: 0.25 }, t);
         tl.fromTo(sel + " span", { y: 0 }, { y: -9, duration: 0.2, stagger: 0.1, repeat: Math.round(d / 0.4), yoyo: true, ease: "sine.inOut" }, t);
         tl.to(sel, { opacity: 0, duration: 0.12 }, t + d);
       };
-      pop("#b1", 2.2, "100% 100%");
-      typing("#ty1", 3.1, 1.2);
-      pop("#b2", 4.4, "0% 100%");
-      pop("#b3", 6.2, "100% 100%");
-      typing("#ty2", 7.3, 1.9);
-      pop("#b4", 9.3, "0% 100%");
-      // confirmation burst
-      tl.fromTo("#badge", { opacity: 0, scale: 0, rotation: -60 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(2)" }, 9.65);
-      ["#rg1", "#rg2"].forEach((r, i) => tl.fromTo(r, { opacity: 1, scale: 0.8 }, { opacity: 0, scale: 2.4 + i * 0.6, duration: 0.9, ease: "power2.out", immediateRender: false }, 9.7 + i * 0.12));
-      for (let i = 0; i < 16; i++) {
-        const a = (i / 16) * 6.283, r = 230 + (i % 3) * 70;
-        tl.fromTo("#pt" + i, { x: 0, y: 0, opacity: 1, rotation: 0, scale: 1 }, { x: Math.cos(a) * r, y: Math.sin(a) * r + 60, opacity: 0, rotation: 180 + i * 20, scale: 0.4, duration: 1.0, ease: "power3.out", immediateRender: false }, 9.72);
-      }
-      tl.to("#badge", { opacity: 0, scale: 1.3, duration: 0.4 }, 10.45);
-      tl.to("#phone", { rotationY: 140, rotationX: 40, y: -1000, scale: 0.4, duration: 0.8, ease: "power3.in" }, 10.4);
-      tl.to(["#t1", "#k1", "#pshadow"], { opacity: 0, x: 300, duration: 0.45, ease: "power2.in" }, 10.5);
+      pop("#b1", 5.0, "100% 100%");
+      typing("#ty1", 5.7, 0.85);
+      pop("#b2", 6.6, "0% 100%");
+      pop("#b3", 7.8, "100% 100%");
+      typing("#ty2", 8.4, 0.75);
+      pop("#b4", 9.2, "0% 100%");
+      tl.fromTo("#sheet", { y: 560 }, { y: 0, duration: 0.6, ease: "expo.out" }, 9.55);
+      tl.fromTo("#ok", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 9.85);
+      tl.fromTo("#chk", { attr: { "stroke-dashoffset": 24 } }, { attr: { "stroke-dashoffset": 0 }, duration: 0.4, ease: "power2.out" }, 10.0);
 
-      // ---- Scene 2
-      tl.fromTo("#k2", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 11.1);
-      tl.fromTo("#t2 span", { opacity: 0, x: 300, skewX: -30 }, { opacity: 1, x: 0, skewX: SK, duration: 0.7, stagger: 0.12, ease: "expo.out" }, 11.15);
-      tl.fromTo("#t2 .grad", { backgroundPosition: "100% 0" }, { backgroundPosition: "30% 0", duration: 1.4, ease: "none" }, 11.15);
-      tl.to("#t2", { opacity: 0, scale: 1.4, duration: 0.4, ease: "power2.in" }, 12.3);
-      tl.fromTo("#cnt", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 12.6);
-      tl.fromTo("#plat", { opacity: 0, y: 160, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: E }, 11.5);
-      const THEME = [["#19e3ff", "#7b3dff"], ["#2f6bff", "#ff2e4d"], ["#ff2e88", "#ff8a1f"]];
-      const POW = [333, 190, 333];
-      [[12.6, 13.0, 16.65], [17.7, 18.1, 23.05], [23.6, 24.0, 28.0]].forEach(([t, vt, vout], i) => {
-        const n = i + 1, c = "#c" + n, l = "#l" + n, v = "#v" + n + "i", [ca, cb] = THEME[i];
-        // stripes + platform recolour
-        tl.set(["#st1", "#st2"], { background: `linear-gradient(90deg, transparent, ${ca}, ${cb}, transparent)` }, t);
-        tl.fromTo("#st1", { x: -1900, skewY: -30, opacity: 0.85 }, { x: 0, skewY: -30, opacity: 0.85, duration: 0.7, ease: "expo.out", immediateRender: false }, t + 0.1);
-        tl.fromTo("#st2", { x: 1900, skewY: -30, opacity: 0.6 }, { x: 0, skewY: -30, opacity: 0.6, duration: 0.7, ease: "expo.out", immediateRender: false }, t + 0.18);
-        tl.to("#plat .pe", { attr: { stroke: ca }, duration: 0.4 }, t);
-        // car drift-in with landing shake
-        tl.fromTo(c, { x: -800, y: -460, opacity: 0, skewX: 14 }, { x: 0, y: 0, opacity: 1, skewX: 0, duration: 1.0, ease: "expo.out" }, t);
-        tl.fromTo("#s2w", { x: 0, y: 0 }, { x: 8, y: -6, duration: 0.05, yoyo: true, repeat: 5, ease: "none", immediateRender: false }, t + 0.55);
-        tl.fromTo("#k" + i + "sh", { attr: { x: -900 } }, { attr: { x: 900 }, duration: 1.0, ease: "power2.inOut" }, t + 1.0);
-        tl.to(c, { y: -10, duration: 1.4, yoyo: true, repeat: 1, ease: "sine.inOut" }, t + 1.2);
-        // footage
-        tl.fromTo(v, { opacity: 0, y: 120, rotationY: -35, rotationZ: -6, scale: 0.8 }, { opacity: 1, y: 0, rotationY: -8, rotationZ: 0, scale: 1, duration: 0.8, ease: "expo.out" }, vt - 0.05);
-        tl.to(v, { rotationY: 8, y: -16, duration: vout - vt - 1.2, ease: "sine.inOut" }, vt + 0.75);
-        tl.to(v, { opacity: 0, x: 500, rotationY: 40, duration: 0.4, ease: "power3.in" }, vout - 0.45);
-        // label
-        tl.fromTo(l + " .brand", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, t + 0.45);
-        tl.fromTo(l + " .name", { opacity: 0, x: -300, skewX: -30 }, { opacity: 1, x: 0, skewX: SK, duration: 0.7, ease: "expo.out" }, t + 0.55);
-        tl.fromTo(l + " .row > *", { opacity: 0, y: 30, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.08, ease: "back.out(2)" }, t + 0.8);
-        const pv = { v: 0 }, pe = document.getElementById("p" + n);
-        tl.fromTo(pv, { v: 0 }, { v: POW[i], duration: 1.3, ease: "power2.out", onUpdate: () => (pe.textContent = Math.round(pv.v) + " CH") }, t + 0.85);
-        tl.set("#cntn", { textContent: "0" + n }, t);
-        if (i < 2) {
-          tl.to(c, { x: 820, y: 470, opacity: 0, skewX: -14, duration: 0.55, ease: "power3.in" }, t + 4.6);
-          tl.to(l, { opacity: 0, x: 300, duration: 0.4, ease: "power2.in" }, t + 4.65);
-          tl.to(["#st1", "#st2"], { opacity: 0, duration: 0.3 }, t + 4.7);
-        } else {
-          tl.to(c, { x: 820, y: 470, opacity: 0, duration: 0.55, ease: "power3.in" }, 27.6);
-          tl.to(l, { opacity: 0, duration: 0.3 }, 27.6);
-          tl.to(["#st1", "#st2"], { opacity: 0, duration: 0.3 }, 27.7);
-        }
+      // ---- fleet: power count-ups + shine sweeps on iso cars
+      [[13.2, 333], [18.4, 190], [24.2, 333]].forEach(([t, v], i) => {
+        const o = { v: 0 }, el = document.getElementById("p" + (i + 1));
+        tl.fromTo(o, { v: 0 }, { v, duration: 1.6, ease: "power2.out", onUpdate: () => (el.textContent = Math.round(o.v)) }, t);
+        tl.fromTo("#k" + i + "sh", { attr: { x: -900 } }, { attr: { x: 900 }, duration: 1.1, ease: "power2.inOut" }, t + 2.3);
       });
-      tl.to(["#plat", "#cnt", "#k2"], { opacity: 0, duration: 0.3 }, 27.9);
 
-      // ---- Scene 3
-      tl.fromTo("#mono", { opacity: 0, scale: 0.3, rotation: -180 }, { opacity: 1, scale: 1, rotation: 0, duration: 1.0, ease: "expo.out" }, 28.45);
-      tl.to("#mono", { rotation: 8, duration: 3.5, ease: "sine.inOut" }, 29.45);
-      tl.fromTo("#bn", { opacity: 0, scale: 2.2, skewX: SK }, { opacity: 1, scale: 1, skewX: SK, duration: 0.7, ease: "expo.out" }, 28.6);
-      tl.fromTo("#bn", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 4, ease: "none" }, 28.6);
-      ["#m1", "#m2", "#m3"].forEach((m, i) => tl.fromTo(m, { opacity: 0, x: -500, y: -290 }, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: "expo.out" }, 29.0 + i * 0.16));
-      tl.fromTo("#cta", { opacity: 0, scale: 0.5, y: 80 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(2)" }, 30.2);
-      tl.to("#cta", { scale: 1.05, duration: 0.4, yoyo: true, repeat: 3, ease: "sine.inOut" }, 30.8);
-      tl.to(["#mono", "#bn", "#m1", "#m2", "#m3", "#cta"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 32.35);
-
-      // ---- Scene 4
-      tl.fromTo("#k4", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 32.9);
-      tl.fromTo("#soon span", { opacity: 0, scale: 2.4, skewX: -30 }, { opacity: 1, scale: 1, skewX: SK, duration: 0.7, stagger: 0.15, ease: "expo.out" }, 32.95);
-      tl.fromTo("#soon .grad", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 4, ease: "none" }, 33.0);
-      tl.to("#soon", { scale: 1.06, duration: 3, ease: "sine.inOut" }, 33.7);
-      tl.fromTo("#stay", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 34.0);
-      tl.to("#stay", { opacity: 0.55, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 35.0);
+      // ---- outro
+      tl.to("#cta", { opacity: 1, duration: 0.5, ease: "power2.out" }, 30.4);
+      tl.fromTo("#cta", { y: 60, scale: 0.9 }, { y: 0, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 30.4);
+      tl.to("#cta", { opacity: 0, duration: 0.3 }, 32.4);
+      tl.to("#world", { filter: "blur(16px)", duration: 1.0, ease: "power2.inOut" }, 32.4);
+      tl.to("#veil", { opacity: 1, duration: 0.9 }, 32.5);
+      tl.to("#end", { opacity: 1, duration: 0.1 }, 32.7);
+      tl.fromTo("#end .mono", { opacity: 0, scale: 1.3, filter: "blur(12px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, 32.7);
+      tl.fromTo("#end .brand", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 33.0);
+      tl.fromTo("#end .soon", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, 33.3);
+      tl.fromTo("#end .stay", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 34.0);
+      tl.fromTo("#end .dots i", { opacity: 0.25 }, { opacity: 1, duration: 0.35, stagger: 0.15, repeat: 4, yoyo: true, ease: "sine.inOut" }, 34.4);
 
       window.__timelines["main"] = tl;
     </script>
