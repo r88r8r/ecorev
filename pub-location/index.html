@@ -8,94 +8,101 @@
     <style>
       @font-face { font-family: "Inter"; font-weight: 500; src: url("fonts/inter-latin-500-normal.woff2") format("woff2"); }
       @font-face { font-family: "Inter"; font-weight: 700; src: url("fonts/inter-latin-700-normal.woff2") format("woff2"); }
-      @font-face { font-family: "Cinzel"; font-weight: 400; src: url("fonts/cinzel-latin-400-normal.woff2") format("woff2"); }
-      @font-face { font-family: "Cinzel"; font-weight: 700; src: url("fonts/cinzel-latin-700-normal.woff2") format("woff2"); }
-      @font-face { font-family: "Cormorant Garamond"; font-weight: 400; src: url("fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2"); }
-      @font-face { font-family: "Cormorant Garamond"; font-weight: 700; src: url("fonts/cormorant-garamond-latin-700-normal.woff2") format("woff2"); }
-      :root { --gold: #d6b46a; --gold2: #f4e3b2; --ink: #060608; }
-      body { margin: 0; background: var(--ink); color: #f5f1e8; font-family: "Inter", sans-serif; }
-      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(110% 70% at 50% 42%, #1d1810 0%, #0c0b09 50%, #050506 100%); }
-      #grid { position: absolute; left: -200px; top: -200px; width: 1480px; height: 2400px; opacity: 0.16; }
-      #vign { position: absolute; inset: 0; background: radial-gradient(90% 60% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.75)); }
-      .cube { position: absolute; }
+      @font-face { font-family: "Anton"; font-weight: 400; src: url("fonts/anton-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Chakra Petch"; font-weight: 500; src: url("fonts/chakra-petch-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Chakra Petch"; font-weight: 700; src: url("fonts/chakra-petch-latin-700-normal.woff2") format("woff2"); }
+      :root { --mag: #ff2e88; --org: #ff8a1f; --yel: #ffd23f; --cyan: #19e3ff; --vio: #7b3dff; --gold: #f2c46d; }
+      body { margin: 0; background: #07040f; color: #fff; font-family: "Inter", sans-serif; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(120% 75% at 50% 45%, #1e0c40 0%, #0d0620 55%, #05030b 100%); }
+      .blob { position: absolute; width: 1100px; height: 1100px; border-radius: 50%; }
+      #grid { position: absolute; left: -200px; top: -200px; width: 1480px; height: 2400px; opacity: 0.14; }
+      #speed { position: absolute; left: -600px; top: -300px; width: 2400px; height: 2600px; transform: rotate(30deg); }
+      .sl { position: absolute; left: 0; height: 5px; border-radius: 3px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent); }
       .clip { position: absolute; inset: 0; }
-      .goldtxt { background: linear-gradient(120deg, #8a6a2b 0%, #f4e3b2 30%, #c9a24f 50%, #fff3cf 62%, #9c7a35 100%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
-      .kicker { position: absolute; left: 0; right: 0; text-align: center; font-family: "Cinzel", serif; font-weight: 400; font-size: 30px; letter-spacing: 14px; color: var(--gold); }
-      .h1 { position: absolute; left: 60px; right: 60px; text-align: center; font-family: "Cormorant Garamond", serif; font-weight: 400; font-size: 104px; line-height: 0.98; }
-      .h1 span { display: block; }
-      .rule { position: absolute; left: 390px; width: 300px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+      .wrap { position: absolute; inset: 0; }
+      .grad { background: linear-gradient(100deg, var(--mag), var(--org) 45%, var(--yel) 70%, var(--cyan)); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .kin { position: absolute; left: 0; right: 0; text-align: center; font-family: "Anton", sans-serif; font-size: 132px; line-height: 0.95; text-transform: uppercase; }
+      .kin span { display: block; }
+      .chroma { text-shadow: 5px 0 rgba(255, 46, 136, 0.75), -5px 0 rgba(25, 227, 255, 0.75); }
+      .tagline { position: absolute; left: 0; right: 0; text-align: center; font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: 12px; color: var(--cyan); }
 
       /* Phone */
-      #stage { position: absolute; left: 0; top: 400px; width: 1080px; height: 1400px; perspective: 2400px; }
-      #phone { position: absolute; left: 280px; top: 70px; width: 520px; height: 1060px; transform-style: preserve-3d; }
-      .slab { position: absolute; inset: 0; border-radius: 76px; background: #17140f; box-shadow: inset 0 0 0 3px #a8884a; }
-      .screen { position: absolute; inset: 0; border-radius: 76px; background: #0b0b0d; border: 12px solid #000; box-shadow: 0 0 0 3px #b8955a; overflow: hidden; box-sizing: border-box; }
-      .back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 76px; background: linear-gradient(140deg, #3a3122, #15130f 60%, #0a0908); box-shadow: inset 0 0 0 3px #b8955a; }
-      .back .cam { position: absolute; left: 40px; top: 40px; width: 170px; height: 170px; border-radius: 44px; background: #050505; box-shadow: inset 0 0 0 2px #6d5a35; }
-      .back .logo { position: absolute; left: 0; right: 0; top: 470px; text-align: center; font-family: "Cinzel", serif; font-weight: 700; font-size: 80px; color: var(--gold); }
+      #stage { position: absolute; left: 0; top: 420px; width: 1080px; height: 1400px; perspective: 2200px; }
+      #phone { position: absolute; left: 280px; top: 60px; width: 520px; height: 1060px; transform-style: preserve-3d; }
+      .slab { position: absolute; inset: 0; border-radius: 76px; background: #1a1230; box-shadow: inset 0 0 0 3px #5b3dff; }
+      .screen { position: absolute; inset: 0; border-radius: 76px; background: #0d0a18; border: 12px solid #000; box-shadow: 0 0 0 3px var(--mag), 0 0 50px rgba(255, 46, 136, 0.55), 0 0 120px rgba(25, 227, 255, 0.25); overflow: hidden; box-sizing: border-box; }
+      .back { position: absolute; inset: 0; border-radius: 76px; backface-visibility: hidden; background: linear-gradient(140deg, var(--mag), var(--vio) 50%, var(--cyan)); }
+      .back .cam { position: absolute; left: 40px; top: 40px; width: 170px; height: 170px; border-radius: 44px; background: #0a0612; }
+      .back .logo { position: absolute; left: 0; right: 0; top: 440px; text-align: center; font-family: "Anton", sans-serif; font-size: 130px; color: #fff; }
       .island { position: absolute; left: 50%; top: 18px; width: 150px; height: 42px; margin-left: -75px; border-radius: 22px; background: #000; }
       .status { position: absolute; left: 44px; right: 44px; top: 22px; display: flex; justify-content: space-between; font-weight: 700; font-size: 25px; }
-      .chathead { position: absolute; left: 0; right: 0; top: 80px; height: 120px; display: flex; align-items: center; gap: 18px; padding: 0 28px; background: #121214; border-bottom: 1px solid #2c2618; }
-      .avatar { width: 78px; height: 78px; border-radius: 50%; background: #0a0a0a; box-shadow: inset 0 0 0 2px var(--gold); display: grid; place-items: center; font-family: "Cinzel", serif; font-weight: 700; font-size: 28px; color: var(--gold); }
-      .who b { display: block; font-family: "Cinzel", serif; font-size: 28px; letter-spacing: 2px; }
-      .who i { display: block; font-style: normal; font-size: 21px; color: #7fd6a0; }
+      .chathead { position: absolute; left: 0; right: 0; top: 80px; height: 120px; display: flex; align-items: center; gap: 18px; padding: 0 28px; background: #150f26; border-bottom: 1px solid #2d2350; }
+      .avatar { width: 78px; height: 78px; border-radius: 50%; background: linear-gradient(135deg, var(--mag), var(--org)); display: grid; place-items: center; font-family: "Anton", sans-serif; font-size: 32px; }
+      .who b { display: block; font-family: "Chakra Petch", sans-serif; font-size: 30px; }
+      .who i { display: block; font-style: normal; font-size: 21px; color: #4dffa6; }
       .bubble { position: absolute; max-width: 350px; padding: 20px 24px; border-radius: 28px; font-size: 26px; line-height: 1.32; font-weight: 500; }
-      .me { right: 22px; background: linear-gradient(135deg, #f1dca4, #c9a24f); color: #1a1408; border-bottom-right-radius: 8px; }
-      .them { left: 22px; background: #1d1c20; border: 1px solid #3a3222; border-bottom-left-radius: 8px; }
-      .them b { color: var(--gold2); }
-      .typing { position: absolute; left: 22px; width: 110px; height: 60px; border-radius: 30px; background: #1d1c20; display: flex; align-items: center; justify-content: center; gap: 10px; }
-      .typing span { width: 13px; height: 13px; border-radius: 50%; background: var(--gold); display: block; }
-      .inputbar { position: absolute; left: 22px; right: 22px; bottom: 28px; height: 76px; border-radius: 38px; background: #161518; color: #8a8478; font-size: 24px; display: flex; align-items: center; padding-left: 30px; }
-      .notif { position: absolute; left: -50px; top: -30px; width: 620px; height: 128px; border-radius: 32px; background: rgba(24, 22, 18, 0.94); border: 1px solid #8a7040; display: flex; align-items: center; gap: 22px; padding: 0 26px; box-sizing: border-box; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
-      .notif .ic { width: 72px; height: 72px; border-radius: 18px; background: #050505; box-shadow: inset 0 0 0 2px var(--gold); display: grid; place-items: center; flex: none; font-family: "Cinzel", serif; font-weight: 700; font-size: 24px; color: var(--gold); }
+      .me { right: 22px; background: linear-gradient(135deg, var(--mag), var(--org)); border-bottom-right-radius: 8px; box-shadow: 0 10px 30px rgba(255, 46, 136, 0.35); }
+      .them { left: 22px; background: #1f1836; border: 1px solid #3a2d6a; border-bottom-left-radius: 8px; }
+      .them b { color: var(--cyan); }
+      .typing { position: absolute; left: 22px; width: 110px; height: 60px; border-radius: 30px; background: #1f1836; display: flex; align-items: center; justify-content: center; gap: 10px; }
+      .typing span { width: 13px; height: 13px; border-radius: 50%; background: var(--cyan); display: block; }
+      .inputbar { position: absolute; left: 22px; right: 22px; bottom: 28px; height: 76px; border-radius: 38px; background: #181228; color: #8c84a8; font-size: 24px; display: flex; align-items: center; padding-left: 30px; }
+      .notif { position: absolute; left: -50px; top: -30px; width: 620px; height: 128px; border-radius: 32px; background: rgba(250, 248, 255, 0.95); color: #120b24; display: flex; align-items: center; gap: 22px; padding: 0 26px; box-sizing: border-box; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(255, 46, 136, 0.6); }
+      .notif .ic { width: 72px; height: 72px; border-radius: 18px; background: linear-gradient(135deg, var(--mag), var(--org)); display: grid; place-items: center; flex: none; font-family: "Anton", sans-serif; font-size: 28px; color: #fff; }
       .notif b { display: block; font-size: 27px; }
-      .notif i { display: block; font-style: normal; font-size: 23px; color: #b9b0a0; }
-      .badge { position: absolute; left: 320px; top: 720px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #f6e6b8, #c9a24f 55%, #8a6a2b); display: grid; place-items: center; box-shadow: 0 0 0 16px rgba(214, 180, 106, 0.18), 0 40px 80px rgba(0, 0, 0, 0.6); }
-      #pshadow { position: absolute; left: 240px; top: 1480px; width: 600px; height: 90px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.8), transparent); }
+      .notif i { display: block; font-style: normal; font-size: 23px; color: #5a5175; }
+      #burst { position: absolute; left: 460px; top: 860px; width: 0; height: 0; }
+      .ring { opacity: 0; position: absolute; left: -150px; top: -150px; width: 300px; height: 300px; border-radius: 50%; border: 6px solid var(--cyan); box-sizing: border-box; }
+      .pt { opacity: 0; position: absolute; left: -10px; top: -10px; width: 20px; height: 20px; border-radius: 4px; }
+      .badge { position: absolute; left: -140px; top: -140px; width: 280px; height: 280px; border-radius: 50%; background: linear-gradient(135deg, #4dffa6, var(--cyan)); display: grid; place-items: center; box-shadow: 0 0 60px rgba(77, 255, 166, 0.6), 0 40px 80px rgba(0, 0, 0, 0.5); }
+      #pshadow { position: absolute; left: 240px; top: 1470px; width: 600px; height: 90px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 46, 136, 0.45), transparent); }
 
       /* Fleet */
+      .stripe { position: absolute; left: -400px; width: 1900px; height: 150px; }
       .vcard { position: absolute; left: 310px; top: 220px; width: 460px; height: 818px; perspective: 1600px; }
-      .vin { position: absolute; inset: 0; border-radius: 26px; overflow: hidden; box-shadow: 0 0 0 2px var(--gold), 0 0 0 10px rgba(214, 180, 106, 0.12), 0 50px 90px rgba(0, 0, 0, 0.7); background: #000; opacity: 0; }
+      .vin { position: absolute; inset: 0; border-radius: 30px; padding: 6px; opacity: 0; }
+      .vin .inner { position: absolute; inset: 6px; border-radius: 25px; overflow: hidden; background: #000; }
       .vin video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      .vin .tag { position: absolute; left: 22px; top: 22px; padding: 8px 16px; border-radius: 20px; background: rgba(0, 0, 0, 0.55); border: 1px solid rgba(214, 180, 106, 0.6); font-family: "Cinzel", serif; font-size: 20px; letter-spacing: 4px; color: var(--gold2); }
+      .vin .tag { position: absolute; left: 20px; top: 20px; padding: 8px 18px; border-radius: 22px; background: rgba(0, 0, 0, 0.6); font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 3px; }
       #plat { position: absolute; left: 158px; top: 1060px; width: 765px; }
       .carw { position: absolute; left: 209px; top: 932px; width: 765px; }
       .carw svg, .mini svg { width: 100%; height: auto; display: block; overflow: visible; }
-      .label { position: absolute; left: 40px; right: 40px; top: 1500px; text-align: center; }
-      .label .brand { font-family: "Cinzel", serif; font-size: 30px; letter-spacing: 12px; color: var(--gold); }
-      .label .name { font-family: "Cormorant Garamond", serif; font-weight: 700; font-size: 104px; line-height: 1; margin-top: 8px; }
-      .chips { display: flex; justify-content: center; gap: 16px; margin-top: 24px; }
-      .chip { padding: 12px 24px; border-radius: 40px; border: 1px solid rgba(214, 180, 106, 0.65); font-family: "Cinzel", serif; font-size: 24px; letter-spacing: 3px; color: #efe6d2; }
-      .count { position: absolute; right: 60px; top: 110px; font-family: "Cinzel", serif; font-size: 30px; color: var(--gold); letter-spacing: 3px; }
+      .label { position: absolute; left: 30px; right: 30px; top: 1470px; text-align: center; }
+      .label .brand { margin-bottom: 12px; font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 32px; letter-spacing: 12px; }
+      .label .name { font-family: "Anton", sans-serif; font-size: 120px; line-height: 1.02; text-transform: uppercase; }
+      .row { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 14px; }
+      .power { font-family: "Anton", sans-serif; font-size: 64px; margin-right: 8px; }
+      .chip { padding: 10px 22px; border-radius: 40px; border: 2px solid rgba(255, 255, 255, 0.35); font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 24px; letter-spacing: 2px; }
+      .count { position: absolute; right: 60px; top: 110px; font-family: "Anton", sans-serif; font-size: 44px; }
+      .mstripe { display: inline-flex; gap: 6px; margin-right: 6px; }
+      .mstripe i { width: 14px; height: 36px; display: block; transform: skewX(-20deg); }
 
-      /* Logo / end */
-      .mono { position: absolute; left: 390px; width: 300px; height: 300px; }
-      .brandname { position: absolute; left: 0; right: 0; text-align: center; font-family: "Cinzel", serif; font-weight: 700; font-size: 96px; letter-spacing: 18px; }
+      /* End */
+      .mono { position: absolute; left: 400px; width: 280px; height: 280px; }
       .mini { position: absolute; width: 460px; }
-      .cta { position: absolute; left: 200px; width: 680px; top: 1600px; height: 112px; border-radius: 56px; background: linear-gradient(120deg, #f4e3b2, #c9a24f 55%, #9c7a35); color: #120e06; display: flex; align-items: center; justify-content: center; gap: 18px; font-family: "Cinzel", serif; font-weight: 700; font-size: 36px; letter-spacing: 2px; box-shadow: 0 20px 60px rgba(214, 180, 106, 0.35); }
-      .soon { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-family: "Cinzel", serif; font-weight: 700; font-size: 128px; letter-spacing: 10px; line-height: 1.05; }
-      .soon span { display: block; }
-      .stay { position: absolute; left: 0; right: 0; top: 1120px; text-align: center; font-family: "Cormorant Garamond", serif; font-size: 84px; }
-      .flash { position: absolute; left: -200px; top: 0; width: 160px; height: 1920px; background: linear-gradient(90deg, transparent, rgba(255, 236, 190, 0.35), transparent); }
+      .cta { position: absolute; left: 180px; width: 720px; top: 1610px; height: 116px; border-radius: 58px; background: linear-gradient(100deg, var(--mag), var(--org) 60%, var(--yel)); display: flex; align-items: center; justify-content: center; gap: 18px; font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 40px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 20px 70px rgba(255, 46, 136, 0.55); }
+      .wipe { position: absolute; top: -200px; width: 900px; height: 2400px; left: -1700px; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="37">
+      <div class="blob" id="bl1" style="left: -450px; top: -250px; background: radial-gradient(closest-side, rgba(255, 46, 136, 0.42), transparent)"></div>
+      <div class="blob" id="bl2" style="left: 450px; top: 600px; background: radial-gradient(closest-side, rgba(25, 227, 255, 0.32), transparent)"></div>
+      <div class="blob" id="bl3" style="left: -300px; top: 1250px; background: radial-gradient(closest-side, rgba(255, 138, 31, 0.32), transparent)"></div>
       <svg id="grid" viewBox="0 0 1480 2400">
         <defs>
           <pattern id="iso" width="138.56" height="80" patternUnits="userSpaceOnUse">
-            <path d="M0 40 L69.28 0 L138.56 40 L69.28 80 Z" fill="none" stroke="#d6b46a" stroke-width="1" />
+            <path d="M0 40 L69.28 0 L138.56 40 L69.28 80 Z" fill="none" stroke="#19e3ff" stroke-width="1.2" />
           </pattern>
         </defs>
         <rect width="1480" height="2400" fill="url(#iso)" />
       </svg>
-      <div id="cubes"></div>
-      <div id="vign"></div>
+      <div id="speed"></div>
 
-      <!-- SCENE 1 : conversation -->
+      <!-- SCENE 1 -->
       <section id="s1" class="clip" data-start="0" data-duration="11.4" data-track-index="1">
-        <div class="kicker" id="k1" style="top: 130px">HC LUXURY</div>
-        <div class="h1" id="t1" style="top: 190px"><span>Votre voiture,</span><span class="goldtxt">en un message.</span></div>
+        <div class="tagline" id="k1" style="top: 120px">HC LUXURY · LOCATION</div>
+        <div class="kin" id="t1" style="top: 170px"><span>Votre voiture</span><span class="grad chroma">en 1 message</span></div>
         <div id="pshadow"></div>
         <div id="stage">
           <div id="phone">
@@ -120,53 +127,69 @@
               <div class="notif" id="notif"><div class="ic">HC</div><div><b>Nouveau message</b><i>« La Golf 8.5 R blanche… »</i></div></div>
             </div>
             <div style="position: absolute; inset: 0; transform: translateZ(160px); transform-style: preserve-3d">
-              <div class="badge" id="badge"><svg width="150" height="150" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#1a1408" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              <div id="burst">
+                <div class="ring" id="rg1"></div>
+                <div class="ring" id="rg2" style="border-color: #ff2e88"></div>
+                <div id="pts"></div>
+                <div class="badge" id="badge"><svg width="150" height="150" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#08121a" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Real footage cards (root level: timed videos can't sit inside a timed section) -->
-      <div class="vcard"><div class="vin" id="v1i"><video id="vid1" src="media/golf-blanche.mp4" muted playsinline data-start="13.0" data-duration="3.7" data-track-index="10"></video><div class="tag">GOLF 8.5 R</div></div></div>
-      <div class="vcard"><div class="vin" id="v2i"><video id="vid2" src="media/bmw.mp4" muted playsinline data-start="18.1" data-duration="5.0" data-media-start="6.5" data-track-index="11"></video><div class="tag">BMW 420D</div></div></div>
-      <div class="vcard"><div class="vin" id="v3i"><video id="vid3" src="media/golf-noire.mp4" muted playsinline data-start="24.0" data-duration="4.05" data-track-index="12"></video><div class="tag">GOLF 8.5 R</div></div></div>
+      <!-- Racing stripes behind the footage -->
+      <div class="stripe" id="st1" style="top: 380px"></div>
+      <div class="stripe" id="st2" style="top: 560px; height: 60px"></div>
 
-      <!-- SCENE 2 : la collection -->
+      <!-- Real footage cards (root level: timed videos can't sit inside a timed section) -->
+      <div class="vcard"><div class="vin" id="v1i" style="background: linear-gradient(160deg, #19e3ff, #7b3dff)"><div class="inner"><video id="vid1" src="media/golf-blanche.mp4" muted playsinline data-start="13.0" data-duration="3.7" data-track-index="10"></video></div><div class="tag" style="color: #19e3ff">● LIVE · GOLF 8.5 R</div></div></div>
+      <div class="vcard"><div class="vin" id="v2i" style="background: linear-gradient(160deg, #2f6bff, #7b3dff 50%, #ff2e4d)"><div class="inner"><video id="vid2" src="media/bmw.mp4" muted playsinline data-start="18.1" data-duration="5.0" data-media-start="6.5" data-track-index="11"></video></div><div class="tag" style="color: #8fb0ff">● LIVE · BMW 420D</div></div></div>
+      <div class="vcard"><div class="vin" id="v3i" style="background: linear-gradient(160deg, #ff2e88, #ff8a1f)"><div class="inner"><video id="vid3" src="media/golf-noire.mp4" muted playsinline data-start="24.0" data-duration="4.05" data-track-index="12"></video></div><div class="tag" style="color: #ff8a1f">● LIVE · GOLF 8.5 R</div></div></div>
+
+      <!-- SCENE 2 -->
       <section id="s2" class="clip" data-start="11.0" data-duration="17.6" data-track-index="2">
-        <div class="kicker" id="k2" style="top: 120px">LA COLLECTION</div>
-        <div class="h1" id="t2" style="top: 560px"><span>Découvrez</span><span class="goldtxt">notre flotte.</span></div>
-        <div class="count" id="cnt"><span id="cntn">01</span> / 03</div>
-        <svg id="plat" viewBox="-580 -330 1160 660"></svg>
-        <div class="carw" id="c1"></div>
-        <div class="carw" id="c2"></div>
-        <div class="carw" id="c3"></div>
-        <div class="label" id="l1"><div class="brand">VOLKSWAGEN</div><div class="name">Golf 8.5 R</div><div class="chips"><span class="chip">Blanche</span><span class="chip">333 ch</span><span class="chip">4Motion</span></div></div>
-        <div class="label" id="l2"><div class="brand">BMW</div><div class="name">Série 4 · 420d</div><div class="chips"><span class="chip">Pack M</span><span class="chip">190 ch</span><span class="chip">Coupé</span></div></div>
-        <div class="label" id="l3"><div class="brand">VOLKSWAGEN</div><div class="name">Golf 8.5 R</div><div class="chips"><span class="chip">Noire</span><span class="chip">333 ch</span><span class="chip">4Motion</span></div></div>
+        <div class="wrap" id="s2w">
+          <div class="tagline" id="k2" style="top: 120px">LA COLLECTION</div>
+          <div class="kin" id="t2" style="top: 620px"><span>Découvrez</span><span class="grad chroma">la flotte</span></div>
+          <div class="count" id="cnt"><span class="grad" id="cntn">01</span>/03</div>
+          <svg id="plat" viewBox="-580 -330 1160 660"></svg>
+          <div class="carw" id="c1"></div>
+          <div class="carw" id="c2"></div>
+          <div class="carw" id="c3"></div>
+          <div class="label" id="l1"><div class="brand" style="color: #19e3ff">VOLKSWAGEN</div><div class="name">Golf 8.5 R</div><div class="row"><span class="power grad" id="p1">0 CH</span><span class="chip">BLANCHE</span><span class="chip">4MOTION</span></div></div>
+          <div class="label" id="l2"><div class="brand" style="color: #8fb0ff">BMW</div><div class="name">Série 4 · 420d</div><div class="row"><span class="mstripe"><i style="background: #5ab4ff"></i><i style="background: #2f3fff"></i><i style="background: #ff2e4d"></i></span><span class="power grad" id="p2">0 CH</span><span class="chip">PACK M</span><span class="chip">COUPÉ</span></div></div>
+          <div class="label" id="l3"><div class="brand" style="color: #ff8a1f">VOLKSWAGEN</div><div class="name">Golf 8.5 R</div><div class="row"><span class="power grad" id="p3">0 CH</span><span class="chip">NOIRE</span><span class="chip">4MOTION</span></div></div>
+        </div>
       </section>
 
-      <!-- SCENE 3 : marque + CTA -->
+      <!-- SCENE 3 -->
       <section id="s3" class="clip" data-start="28.4" data-duration="4.6" data-track-index="3">
-        <svg class="mono" id="mono" style="top: 150px" viewBox="-150 -150 300 300"><polygon points="0,-130 130,0 0,130 -130,0" fill="none" stroke="#d6b46a" stroke-width="2.5" /><text x="0" y="26" text-anchor="middle" font-family="Cinzel" font-weight="700" font-size="78" fill="#d6b46a">HC</text></svg>
-        <div class="brandname goldtxt" id="bn" style="top: 470px">LUXURY</div>
+        <svg class="mono" id="mono" style="top: 140px" viewBox="-150 -150 300 300">
+          <defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff2e88" /><stop offset=".5" stop-color="#ff8a1f" /><stop offset="1" stop-color="#19e3ff" /></linearGradient></defs>
+          <polygon points="0,-135 135,0 0,135 -135,0" fill="none" stroke="url(#mg)" stroke-width="8" />
+          <text x="0" y="34" text-anchor="middle" font-family="Anton" font-size="104" fill="#fff">HC</text>
+        </svg>
+        <div class="kin grad chroma" id="bn" style="top: 450px; font-size: 150px">Luxury</div>
         <div class="mini" id="m1" style="left: 40px; top: 760px"></div>
         <div class="mini" id="m2" style="left: 310px; top: 960px"></div>
         <div class="mini" id="m3" style="left: 580px; top: 1160px"></div>
-        <div class="cta" id="cta"><svg width="44" height="44" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z" fill="#120e06" /></svg>Réservez par message</div>
+        <div class="cta" id="cta"><svg width="46" height="46" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z" fill="#fff" /></svg>Réservez par message</div>
       </section>
 
-      <!-- SCENE 4 : coming soon -->
+      <!-- SCENE 4 -->
       <section id="s4" class="clip" data-start="32.8" data-duration="4.2" data-track-index="4">
-        <div class="kicker" id="k4" style="top: 560px">HC LUXURY</div>
-        <div class="rule" id="r4a" style="top: 680px"></div>
-        <div class="soon goldtxt" id="soon"><span>COMING</span><span>SOON</span></div>
-        <div class="stay" id="stay">Restez branchés.</div>
-        <div class="rule" id="r4b" style="top: 1260px"></div>
+        <div class="tagline" id="k4" style="top: 600px">HC LUXURY</div>
+        <div class="kin" id="soon" style="top: 680px; font-size: 210px"><span class="grad chroma">Coming</span><span class="grad chroma">Soon</span></div>
+        <div class="tagline" id="stay" style="top: 1130px; font-size: 52px; letter-spacing: 10px; color: #fff">RESTEZ BRANCHÉS</div>
       </section>
-      <div class="flash" id="fl"></div>
 
-      <!-- Audio: music bed, voice-over (synthetic, ff_siwis), sound design -->
-      <audio id="music" src="audio/music.wav" data-start="0" data-duration="37" data-volume="0.45" data-track-index="20"></audio>
+      <div class="wipe" id="w1" style="background: #ff2e88"></div>
+      <div class="wipe" id="w2" style="background: #ff8a1f"></div>
+      <div class="wipe" id="w3" style="background: #19e3ff"></div>
+
+      <!-- Audio -->
+      <audio id="music" src="audio/music.wav" data-start="0" data-duration="37" data-volume="0.3" data-track-index="20"></audio>
       <audio id="vo1" src="audio/vo1.wav" data-start="0.6" data-duration="4.35" data-track-index="21"></audio>
       <audio id="vo2" src="audio/vo2.wav" data-start="5.3" data-duration="3.84" data-track-index="21"></audio>
       <audio id="vo3" src="audio/vo3.wav" data-start="9.45" data-duration="1.28" data-track-index="21"></audio>
@@ -196,20 +219,18 @@
     <script src="iso.js"></script>
     <script>
       document.getElementById("slabs").innerHTML = [...Array(9)].map((_, i) => `<div class="slab" style="transform:translateZ(${-20 + i * 5}px)"></div>`).join("");
-
-      function cube(s) {
-        const t = [P(0, 0, s), P(s, 0, s), P(s, s, s), P(0, s, s)], l = [P(0, s, s), P(s, s, s), P(s, s, 0), P(0, s, 0)], r = [P(s, 0, s), P(s, s, s), P(s, s, 0), P(s, 0, 0)];
-        const st = 'stroke="#d6b46a" stroke-width="2.5" stroke-linejoin="round"';
-        return `<svg viewBox="${-s * C - 4} ${-s - 4} ${2 * s * C + 8} ${2 * s + 8}">${poly(t, "rgba(214,180,106,.10)", st)}${poly(l, "rgba(214,180,106,.04)", st)}${poly(r, "rgba(0,0,0,.2)", st)}</svg>`;
-      }
-      const cubeDefs = [[70, 330, 80], [930, 560, 60], [90, 1560, 54], [900, 1700, 90]];
-      document.getElementById("cubes").innerHTML = cubeDefs.map((c, i) => `<div class="cube" id="cb${i}" style="left:${c[0]}px;top:${c[1]}px;width:${c[2]}px;opacity:.6">${cube(100)}</div>`).join("");
+      const COLS = ["#ff2e88", "#ff8a1f", "#ffd23f", "#19e3ff", "#7b3dff", "#4dffa6"];
+      // speed lines (deterministic layout)
+      const SL = 18;
+      document.getElementById("speed").innerHTML = [...Array(SL)].map((_, i) => `<div class="sl" id="sl${i}" style="top:${120 + i * 135}px;width:${260 + ((i * 97) % 380)}px;opacity:${0.25 + ((i * 37) % 60) / 100}"></div>`).join("");
+      // confetti particles
+      document.getElementById("pts").innerHTML = [...Array(16)].map((_, i) => `<div class="pt" id="pt${i}" style="background:${COLS[i % 6]}"></div>`).join("");
 
       (function () {
         const q = (s, z) => [P(-s, -s, z), P(s, -s, z), P(s, s, z), P(-s, s, z)];
         const s = 300, d = 22;
         const side1 = [P(s, -s, 0), P(s, s, 0), P(s, s, -d), P(s, -s, -d)], side2 = [P(-s, s, 0), P(s, s, 0), P(s, s, -d), P(-s, s, -d)];
-        document.getElementById("plat").innerHTML = poly(side1, "#0d0b08", 'stroke="#d6b46a" stroke-width="1.5"') + poly(side2, "#15120c", 'stroke="#d6b46a" stroke-width="1.5"') + poly(q(s, 0), "#1a160f", 'stroke="#d6b46a" stroke-width="3"') + poly(q(s - 40, 0), "none", 'stroke="#d6b46a" stroke-opacity=".35" stroke-width="1.5"');
+        document.getElementById("plat").innerHTML = poly(side1, "#120a26", 'class="pe" stroke="#19e3ff" stroke-width="2"') + poly(side2, "#1a0f36", 'class="pe" stroke="#19e3ff" stroke-width="2"') + poly(q(s, 0), "#1d1240", 'class="pe" stroke="#19e3ff" stroke-width="4"') + poly(q(s - 40, 0), "none", 'class="pe" stroke="#19e3ff" stroke-opacity=".4" stroke-width="2"');
       })();
 
       const cars = [
@@ -223,23 +244,37 @@
       });
 
       const tl = gsap.timeline({ paused: true });
-      const E = "power3.out";
-      tl.fromTo("#grid", { y: 0 }, { y: 160, duration: 37, ease: "none" }, 0);
-      cubeDefs.forEach((_, i) => tl.fromTo("#cb" + i, { y: 0, rotation: 0 }, { y: -80 - i * 15, rotation: i % 2 ? 6 : -6, duration: 37, ease: "sine.inOut" }, 0));
-      tl.set("#fl", { x: 0 }, 0);
-      [10.7, 28.2, 32.6].forEach((t) => tl.fromTo("#fl", { x: 0 }, { x: 1500, duration: 0.7, ease: "power2.inOut", immediateRender: false }, t));
+      const E = "power3.out", SK = -10;
+      // ambient
+      tl.fromTo("#grid", { y: 0 }, { y: 320, duration: 37, ease: "none" }, 0);
+      [["#bl1", 260, 380], ["#bl2", -320, -260], ["#bl3", 380, -300]].forEach(([b, x, y]) => tl.fromTo(b, { x: 0, y: 0, scale: 1 }, { x, y, scale: 1.25, duration: 37, ease: "sine.inOut" }, 0));
+      for (let i = 0; i < SL; i++) {
+        const d = 0.55 + ((i * 13) % 7) / 10, n = Math.floor(37 / d);
+        tl.fromTo("#sl" + i, { x: -700 }, { x: 2600, duration: d, ease: "none", repeat: n - 1 }, ((i * 0.23) % 1));
+      }
+      // speed-line intensity per section
+      tl.fromTo("#speed", { opacity: 0.35 }, { opacity: 0.12, duration: 2, ease: "power2.out" }, 1.5);
+      [12.6, 17.7, 23.6].forEach((t) => {
+        tl.to("#speed", { opacity: 0.9, duration: 0.25 }, t);
+        tl.to("#speed", { opacity: 0.15, duration: 1.2, ease: "power2.out" }, t + 0.9);
+      });
+      tl.to("#speed", { opacity: 0.8, duration: 0.4 }, 32.8);
+      // colour wipes between scenes
+      const wipe = (t) => ["#w1", "#w2", "#w3"].forEach((w, i) => tl.fromTo(w, { x: 0, skewX: -18 }, { x: 3900, skewX: -18, duration: 0.85, ease: "power3.inOut", immediateRender: false }, t + i * 0.07));
+      ["#w1", "#w2", "#w3"].forEach((w) => tl.set(w, { x: 0, skewX: -18 }, 0));
+      wipe(10.55); wipe(27.95); wipe(32.35);
 
       // ---- Scene 1
-      tl.fromTo("#k1", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 1.2, ease: E }, 0.2);
-      tl.fromTo("#t1 span", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.9, stagger: 0.15, ease: E }, 0.4);
-      tl.fromTo("#t1 .goldtxt", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 3, ease: "sine.inOut" }, 0.6);
-      tl.fromTo("#phone", { rotationY: -380, rotationX: 30, rotationZ: -8, y: 500, scale: 0.55 }, { rotationY: -20, rotationX: 12, rotationZ: 3, y: 0, scale: 1, duration: 2, ease: "power4.out" }, 0);
+      tl.fromTo("#k1", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 0.2);
+      tl.fromTo("#t1 span", { opacity: 0, x: -260, skewX: -30 }, { opacity: 1, x: 0, skewX: SK, duration: 0.8, stagger: 0.14, ease: "expo.out" }, 0.3);
+      tl.fromTo("#t1 .grad", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 9, ease: "none" }, 0.4);
+      tl.fromTo("#phone", { rotationY: -400, rotationX: 30, rotationZ: -12, y: 600, scale: 0.5 }, { rotationY: -20, rotationX: 12, rotationZ: 4, y: 0, scale: 1, duration: 2, ease: "power4.out" }, 0);
       tl.fromTo("#pshadow", { opacity: 0, scaleX: 0.4 }, { opacity: 1, scaleX: 1, duration: 1.8, ease: E }, 0.2);
-      tl.to("#phone", { rotationY: 14, rotationX: 9, rotationZ: -2, duration: 8.5, ease: "sine.inOut" }, 2);
+      tl.to("#phone", { rotationY: 16, rotationX: 8, rotationZ: -3, y: -20, duration: 8.4, ease: "sine.inOut" }, 2);
       tl.to("#pshadow", { x: 30, duration: 8.5, ease: "sine.inOut" }, 2);
-      tl.fromTo("#notif", { opacity: 0, y: -120 }, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" }, 1.0);
+      tl.fromTo("#notif", { opacity: 0, y: -120, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 1.0);
       tl.to("#notif", { opacity: 0, y: -140, duration: 0.45, ease: "power2.in" }, 2.0);
-      const pop = (sel, t, from) => tl.fromTo(sel, { opacity: 0, scale: 0.6, y: 30, transformOrigin: from }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(1.6)" }, t);
+      const pop = (sel, t, from) => tl.fromTo(sel, { opacity: 0, scale: 0.5, y: 40, transformOrigin: from }, { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "back.out(2)" }, t);
       const typing = (sel, t, d) => {
         tl.fromTo(sel, { opacity: 0, scale: 0.6, transformOrigin: "0% 100%" }, { opacity: 1, scale: 1, duration: 0.25 }, t);
         tl.fromTo(sel + " span", { y: 0 }, { y: -9, duration: 0.2, stagger: 0.1, repeat: Math.round(d / 0.4), yoyo: true, ease: "sine.inOut" }, t);
@@ -251,48 +286,78 @@
       pop("#b3", 6.2, "100% 100%");
       typing("#ty2", 7.3, 1.9);
       pop("#b4", 9.3, "0% 100%");
-      tl.fromTo("#badge", { opacity: 0, scale: 0, rotation: -40 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.8)" }, 9.65);
-      tl.to("#badge", { opacity: 0, scale: 1.3, duration: 0.4 }, 10.5);
-      tl.to("#phone", { rotationY: 120, rotationX: 40, y: -900, scale: 0.4, duration: 0.9, ease: "power3.in" }, 10.5);
-      tl.to(["#t1", "#k1", "#pshadow"], { opacity: 0, y: -60, duration: 0.5, ease: "power2.in" }, 10.6);
+      // confirmation burst
+      tl.fromTo("#badge", { opacity: 0, scale: 0, rotation: -60 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(2)" }, 9.65);
+      ["#rg1", "#rg2"].forEach((r, i) => tl.fromTo(r, { opacity: 1, scale: 0.8 }, { opacity: 0, scale: 2.4 + i * 0.6, duration: 0.9, ease: "power2.out", immediateRender: false }, 9.7 + i * 0.12));
+      for (let i = 0; i < 16; i++) {
+        const a = (i / 16) * 6.283, r = 230 + (i % 3) * 70;
+        tl.fromTo("#pt" + i, { x: 0, y: 0, opacity: 1, rotation: 0, scale: 1 }, { x: Math.cos(a) * r, y: Math.sin(a) * r + 60, opacity: 0, rotation: 180 + i * 20, scale: 0.4, duration: 1.0, ease: "power3.out", immediateRender: false }, 9.72);
+      }
+      tl.to("#badge", { opacity: 0, scale: 1.3, duration: 0.4 }, 10.45);
+      tl.to("#phone", { rotationY: 140, rotationX: 40, y: -1000, scale: 0.4, duration: 0.8, ease: "power3.in" }, 10.4);
+      tl.to(["#t1", "#k1", "#pshadow"], { opacity: 0, x: 300, duration: 0.45, ease: "power2.in" }, 10.5);
 
       // ---- Scene 2
-      tl.fromTo("#k2", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 1, ease: E }, 11.1);
-      tl.fromTo("#t2 span", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: E }, 11.2);
-      tl.to("#t2", { opacity: 0, y: -40, duration: 0.5, ease: "power2.in" }, 12.4);
-      tl.fromTo("#cnt", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 12.6);
-      tl.fromTo("#plat", { opacity: 0, y: 160, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 1, ease: E }, 11.5);
+      tl.fromTo("#k2", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, 11.1);
+      tl.fromTo("#t2 span", { opacity: 0, x: 300, skewX: -30 }, { opacity: 1, x: 0, skewX: SK, duration: 0.7, stagger: 0.12, ease: "expo.out" }, 11.15);
+      tl.fromTo("#t2 .grad", { backgroundPosition: "100% 0" }, { backgroundPosition: "30% 0", duration: 1.4, ease: "none" }, 11.15);
+      tl.to("#t2", { opacity: 0, scale: 1.4, duration: 0.4, ease: "power2.in" }, 12.3);
+      tl.fromTo("#cnt", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 12.6);
+      tl.fromTo("#plat", { opacity: 0, y: 160, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: E }, 11.5);
+      const THEME = [["#19e3ff", "#7b3dff"], ["#2f6bff", "#ff2e4d"], ["#ff2e88", "#ff8a1f"]];
+      const POW = [333, 190, 333];
       [[12.6, 13.0, 16.65], [17.7, 18.1, 23.05], [23.6, 24.0, 28.0]].forEach(([t, vt, vout], i) => {
-        const n = i + 1, c = "#c" + n, l = "#l" + n, v = "#v" + n + "i";
-        tl.fromTo(c, { x: -760, y: -440, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 1.1, ease: "power4.out" }, t);
-        tl.to(c, { rotation: -1, duration: 0.2, yoyo: true, repeat: 1, ease: "sine.inOut" }, t + 0.9);
-        tl.fromTo("#k" + i + "sh", { attr: { x: -900 } }, { attr: { x: 900 }, duration: 1.2, ease: "power2.inOut" }, t + 1.2);
-        tl.fromTo(v, { opacity: 0, y: 80, rotationY: -25, rotationX: 8, clipPath: "inset(100% 0% 0% 0% round 26px)" }, { opacity: 1, y: 0, rotationY: -8, rotationX: 3, clipPath: "inset(0% 0% 0% 0% round 26px)", duration: 0.9, ease: E }, vt - 0.05);
-        tl.to(v, { rotationY: 6, duration: vout - vt - 1.3, ease: "sine.inOut" }, vt + 0.85);
-        tl.to(v, { opacity: 0, y: -60, scale: 0.94, duration: 0.4, ease: "power2.in" }, vout - 0.45);
-        tl.fromTo(l + " .brand", { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.9, ease: E }, t + 0.5);
-        tl.fromTo(l + " .name", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: E }, t + 0.65);
-        tl.fromTo(l + " .chip", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: E }, t + 0.9);
+        const n = i + 1, c = "#c" + n, l = "#l" + n, v = "#v" + n + "i", [ca, cb] = THEME[i];
+        // stripes + platform recolour
+        tl.set(["#st1", "#st2"], { background: `linear-gradient(90deg, transparent, ${ca}, ${cb}, transparent)` }, t);
+        tl.fromTo("#st1", { x: -1900, skewY: -30, opacity: 0.85 }, { x: 0, skewY: -30, opacity: 0.85, duration: 0.7, ease: "expo.out", immediateRender: false }, t + 0.1);
+        tl.fromTo("#st2", { x: 1900, skewY: -30, opacity: 0.6 }, { x: 0, skewY: -30, opacity: 0.6, duration: 0.7, ease: "expo.out", immediateRender: false }, t + 0.18);
+        tl.to("#plat .pe", { attr: { stroke: ca }, duration: 0.4 }, t);
+        // car drift-in with landing shake
+        tl.fromTo(c, { x: -800, y: -460, opacity: 0, skewX: 14 }, { x: 0, y: 0, opacity: 1, skewX: 0, duration: 1.0, ease: "expo.out" }, t);
+        tl.fromTo("#s2w", { x: 0, y: 0 }, { x: 8, y: -6, duration: 0.05, yoyo: true, repeat: 5, ease: "none", immediateRender: false }, t + 0.55);
+        tl.fromTo("#k" + i + "sh", { attr: { x: -900 } }, { attr: { x: 900 }, duration: 1.0, ease: "power2.inOut" }, t + 1.0);
+        tl.to(c, { y: -10, duration: 1.4, yoyo: true, repeat: 1, ease: "sine.inOut" }, t + 1.2);
+        // footage
+        tl.fromTo(v, { opacity: 0, y: 120, rotationY: -35, rotationZ: -6, scale: 0.8 }, { opacity: 1, y: 0, rotationY: -8, rotationZ: 0, scale: 1, duration: 0.8, ease: "expo.out" }, vt - 0.05);
+        tl.to(v, { rotationY: 8, y: -16, duration: vout - vt - 1.2, ease: "sine.inOut" }, vt + 0.75);
+        tl.to(v, { opacity: 0, x: 500, rotationY: 40, duration: 0.4, ease: "power3.in" }, vout - 0.45);
+        // label
+        tl.fromTo(l + " .brand", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: E }, t + 0.45);
+        tl.fromTo(l + " .name", { opacity: 0, x: -300, skewX: -30 }, { opacity: 1, x: 0, skewX: SK, duration: 0.7, ease: "expo.out" }, t + 0.55);
+        tl.fromTo(l + " .row > *", { opacity: 0, y: 30, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.08, ease: "back.out(2)" }, t + 0.8);
+        const pv = { v: 0 }, pe = document.getElementById("p" + n);
+        tl.fromTo(pv, { v: 0 }, { v: POW[i], duration: 1.3, ease: "power2.out", onUpdate: () => (pe.textContent = Math.round(pv.v) + " CH") }, t + 0.85);
         tl.set("#cntn", { textContent: "0" + n }, t);
-        tl.to(c, { x: 800, y: 460, opacity: 0, duration: 0.65, ease: "power3.in" }, i < 2 ? t + 4.6 : 27.8);
-        tl.to(l, { opacity: 0, y: -30, duration: 0.4, ease: "power2.in" }, i < 2 ? t + 4.7 : 27.8);
+        if (i < 2) {
+          tl.to(c, { x: 820, y: 470, opacity: 0, skewX: -14, duration: 0.55, ease: "power3.in" }, t + 4.6);
+          tl.to(l, { opacity: 0, x: 300, duration: 0.4, ease: "power2.in" }, t + 4.65);
+          tl.to(["#st1", "#st2"], { opacity: 0, duration: 0.3 }, t + 4.7);
+        } else {
+          tl.to(c, { x: 820, y: 470, opacity: 0, duration: 0.55, ease: "power3.in" }, 27.6);
+          tl.to(l, { opacity: 0, duration: 0.3 }, 27.6);
+          tl.to(["#st1", "#st2"], { opacity: 0, duration: 0.3 }, 27.7);
+        }
       });
-      tl.to(["#plat", "#cnt", "#k2"], { opacity: 0, duration: 0.4 }, 28.0);
+      tl.to(["#plat", "#cnt", "#k2"], { opacity: 0, duration: 0.3 }, 27.9);
 
       // ---- Scene 3
-      tl.fromTo("#mono", { opacity: 0, scale: 0.4, rotation: -90 }, { opacity: 1, scale: 1, rotation: 0, duration: 1.1, ease: "expo.out" }, 28.45);
-      tl.fromTo("#bn", { opacity: 0, scale: 1.3, backgroundPosition: "100% 0" }, { opacity: 1, scale: 1, backgroundPosition: "0% 0", duration: 1.4, ease: E }, 28.6);
-      ["#m1", "#m2", "#m3"].forEach((m, i) => tl.fromTo(m, { opacity: 0, y: -240 }, { opacity: 1, y: 0, duration: 0.8, ease: "bounce.out" }, 29.0 + i * 0.2));
-      tl.fromTo("#cta", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 30.2);
-      tl.to("#cta", { scale: 1.04, duration: 0.5, yoyo: true, repeat: 2, ease: "sine.inOut" }, 30.9);
-      tl.to(["#mono", "#bn", "#m1", "#m2", "#m3", "#cta"], { opacity: 0, duration: 0.45, ease: "power2.in" }, 32.45);
+      tl.fromTo("#mono", { opacity: 0, scale: 0.3, rotation: -180 }, { opacity: 1, scale: 1, rotation: 0, duration: 1.0, ease: "expo.out" }, 28.45);
+      tl.to("#mono", { rotation: 8, duration: 3.5, ease: "sine.inOut" }, 29.45);
+      tl.fromTo("#bn", { opacity: 0, scale: 2.2, skewX: SK }, { opacity: 1, scale: 1, skewX: SK, duration: 0.7, ease: "expo.out" }, 28.6);
+      tl.fromTo("#bn", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 4, ease: "none" }, 28.6);
+      ["#m1", "#m2", "#m3"].forEach((m, i) => tl.fromTo(m, { opacity: 0, x: -500, y: -290 }, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: "expo.out" }, 29.0 + i * 0.16));
+      tl.fromTo("#cta", { opacity: 0, scale: 0.5, y: 80 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(2)" }, 30.2);
+      tl.to("#cta", { scale: 1.05, duration: 0.4, yoyo: true, repeat: 3, ease: "sine.inOut" }, 30.8);
+      tl.to(["#mono", "#bn", "#m1", "#m2", "#m3", "#cta"], { opacity: 0, duration: 0.35, ease: "power2.in" }, 32.35);
 
-      // ---- Scene 4 : Coming soon
-      tl.fromTo("#k4", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 1.2, ease: E }, 32.9);
-      tl.fromTo(["#r4a", "#r4b"], { scaleX: 0 }, { scaleX: 1, duration: 1, ease: E }, 33.0);
-      tl.fromTo("#soon span", { opacity: 0, y: 60, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.18, ease: E }, 33.1);
-      tl.fromTo("#soon", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 3.6, ease: "sine.inOut" }, 33.2);
-      tl.fromTo("#stay", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: E }, 34.1);
+      // ---- Scene 4
+      tl.fromTo("#k4", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 32.9);
+      tl.fromTo("#soon span", { opacity: 0, scale: 2.4, skewX: -30 }, { opacity: 1, scale: 1, skewX: SK, duration: 0.7, stagger: 0.15, ease: "expo.out" }, 32.95);
+      tl.fromTo("#soon .grad", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 4, ease: "none" }, 33.0);
+      tl.to("#soon", { scale: 1.06, duration: 3, ease: "sine.inOut" }, 33.7);
+      tl.fromTo("#stay", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 34.0);
+      tl.to("#stay", { opacity: 0.55, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut" }, 35.0);
 
       window.__timelines["main"] = tl;
     </script>
