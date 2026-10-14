@@ -8,100 +8,127 @@
     <style>
       @font-face { font-family: "Inter"; font-weight: 500; src: url("fonts/inter-latin-500-normal.woff2") format("woff2"); }
       @font-face { font-family: "Inter"; font-weight: 700; src: url("fonts/inter-latin-700-normal.woff2") format("woff2"); }
-      @font-face { font-family: "Inter"; font-weight: 800; src: url("fonts/inter-latin-800-normal.woff2") format("woff2"); }
       @font-face { font-family: "Bodoni Moda"; font-weight: 400; src: url("fonts/bodoni-moda-latin-400-normal.woff2") format("woff2"); }
       @font-face { font-family: "Bodoni Moda"; font-weight: 700; src: url("fonts/bodoni-moda-latin-700-normal.woff2") format("woff2"); }
-      :root { --gold: #d4b276; --gold2: #f0dcae; --ivory: #f3ede2; }
-      body { margin: 0; background: #070708; color: var(--ivory); font-family: "Inter", sans-serif; }
-      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(110% 70% at 50% 42%, #221c12 0%, #0d0c0a 55%, #050505 100%); }
-      #rig { position: absolute; inset: 0; perspective: 2600px; }
-      #cam { position: absolute; left: 540px; top: 1010px; width: 0; height: 0; transform-style: preserve-3d; }
-      #world { position: absolute; left: 0; top: 0; width: 3200px; height: 3200px; }
-      .t { position: absolute; border-radius: 44px; overflow: hidden; background: linear-gradient(160deg, #1c1b1e, #0c0c0d); box-shadow: inset 0 0 0 1.5px rgba(212, 178, 118, 0.28), 0 40px 80px rgba(0, 0, 0, 0.55); }
-      .g { background: linear-gradient(135deg, #f0dcae, #b58d4c); color: #141008; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55); }
-      .iv { background: linear-gradient(160deg, #f8f4ec, #e4dccd); color: #141414; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55); }
-      .pad { padding: 34px; box-sizing: border-box; }
-      .bod { font-family: "Bodoni Moda", serif; font-weight: 700; }
-      .lbl { font-size: 22px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); }
-      .big { font-weight: 800; font-size: 40px; line-height: 1.1; margin-top: 14px; }
-      .ico { width: 84px; height: 84px; border-radius: 24px; background: rgba(212, 178, 118, 0.14); display: grid; place-items: center; margin-bottom: 26px; }
-      video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-      #topfade { position: absolute; left: 0; right: 0; top: 0; height: 480px; background: linear-gradient(#0b0a09 50%, rgba(11, 10, 9, 0)); }
-      .cap { position: absolute; left: 50px; right: 50px; top: 150px; text-align: center; font-weight: 800; font-size: 72px; letter-spacing: -1.5px; line-height: 1.05; opacity: 0; }
-      .cap g { font-family: "Bodoni Moda", serif; font-weight: 700; color: var(--gold); letter-spacing: 0; }
-      .cap span { display: inline-block; }
-      #veil { position: absolute; inset: 0; background: rgba(8, 8, 9, 0.72); opacity: 0; }
-      #end { position: absolute; inset: 0; opacity: 0; text-align: center; }
-      #end svg { position: absolute; left: 390px; top: 470px; }
-      #end .name { position: absolute; left: 0; right: 0; top: 800px; font-family: "Bodoni Moda", serif; font-weight: 700; font-size: 110px; color: var(--ivory); }
-      #end .sub { position: absolute; left: 0; right: 0; top: 950px; font-size: 32px; font-weight: 700; letter-spacing: 8px; color: var(--gold); }
-      #end .cta { position: absolute; left: 190px; width: 700px; top: 1130px; height: 116px; border-radius: 58px; background: linear-gradient(120deg, #f0dcae, #b58d4c); color: #141008; display: grid; place-items: center; font-weight: 800; font-size: 40px; box-shadow: 0 24px 70px rgba(212, 178, 118, 0.35); }
-      #end .note { position: absolute; left: 0; right: 0; top: 1290px; font-size: 30px; color: #b7ad9b; }
+      :root { --ox: #3a0c14; --ox2: #5a1624; --iv: #f4ece0; --ch: #d8b98a; --ink: #140709; }
+      body { margin: 0; background: var(--ox); color: var(--iv); font-family: "Inter", sans-serif; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(120% 80% at 50% 35%, #5a1624 0%, #3a0c14 55%, #22060b 100%); }
+      .clip { position: absolute; inset: 0; }
+      .bod { font-family: "Bodoni Moda", serif; }
+      .mask { overflow: hidden; display: block; }
+      .mask > span { display: block; }
+      .small { font-size: 24px; font-weight: 700; letter-spacing: 6px; text-transform: uppercase; }
+      /* magazine frame */
+      #frame { position: absolute; inset: 0; }
+      #frame .bar { position: absolute; left: 60px; right: 60px; display: flex; justify-content: space-between; color: var(--ch); }
+      #frame .rule { position: absolute; left: 60px; right: 60px; height: 1px; background: rgba(216, 185, 138, 0.5); }
+      #badge { position: absolute; right: 70px; top: 1560px; width: 230px; height: 230px; }
+      #grain { position: absolute; inset: 0; opacity: 0.12; mix-blend-mode: overlay; }
+      /* arches */
+      .arch { position: absolute; overflow: hidden; border-radius: 300px 300px 28px 28px; background: #22060b; box-shadow: 0 0 0 2px rgba(216, 185, 138, 0.6), 0 40px 90px rgba(0, 0, 0, 0.5); }
+      .arch video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      /* scene 1 */
+      .s1w { position: absolute; left: 60px; right: 60px; font-weight: 400; font-size: 190px; line-height: 0.95; letter-spacing: -4px; }
+      /* scene 2 list */
+      .li { position: absolute; left: 60px; width: 600px; border-top: 1px solid rgba(216, 185, 138, 0.5); padding-top: 18px; display: flex; gap: 26px; align-items: baseline; }
+      .li .n { font-size: 26px; font-weight: 700; color: var(--ch); letter-spacing: 2px; }
+      .li .x { font-family: "Bodoni Moda", serif; font-size: 66px; line-height: 1.05; }
+      /* scene 3 */
+      .sw { width: 86px; height: 86px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(244, 236, 224, 0.4); }
+      /* scene 4 */
+      #big48 { position: absolute; left: 0; right: 0; top: 430px; text-align: center; font-family: "Bodoni Moda", serif; font-weight: 700; font-size: 560px; line-height: 1; letter-spacing: -20px; color: transparent; -webkit-text-stroke: 3px var(--ch); }
+      #big48f { position: absolute; left: 0; right: 0; top: 430px; text-align: center; font-family: "Bodoni Moda", serif; font-weight: 700; font-size: 560px; line-height: 1; letter-spacing: -20px; color: var(--iv); }
+      .chip { padding: 14px 28px; border-radius: 40px; border: 1.5px solid var(--ch); font-size: 28px; font-weight: 700; letter-spacing: 2px; color: var(--ch); }
+      /* end */
+      #paper { position: absolute; inset: 0; background: var(--iv); clip-path: circle(0% at 50% 50%); }
+      #end { position: absolute; inset: 0; color: var(--ink); text-align: center; }
+      #end .name { position: absolute; left: 0; right: 0; top: 660px; font-family: "Bodoni Moda", serif; font-weight: 400; font-size: 240px; line-height: 1; letter-spacing: -6px; }
+      #end .studio { position: absolute; left: 0; right: 0; top: 920px; font-size: 36px; font-weight: 700; letter-spacing: 30px; color: var(--ox2); }
+      #end .cta { position: absolute; left: 200px; width: 680px; top: 1130px; height: 116px; border-radius: 58px; background: var(--ox); color: var(--iv); display: grid; place-items: center; font-weight: 700; font-size: 38px; }
+      #end .note { position: absolute; left: 0; right: 0; top: 1290px; font-size: 30px; color: #6b4a46; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="29">
-      <div id="rig">
-        <div id="cam">
-          <div id="world">
-            <div id="fill"></div>
-
-            <!-- A : hero + showreel phone -->
-            <div class="t g" style="left: 480px; top: 520px; width: 420px; height: 420px; display: grid; place-items: center">
-              <svg width="300" height="300" viewBox="-150 -150 300 300"><polygon points="0,-130 130,0 0,130 -130,0" fill="none" stroke="#141008" stroke-width="5" /><text x="0" y="42" text-anchor="middle" font-family="Bodoni Moda" font-weight="700" font-size="130" fill="#141008">É</text></svg>
-            </div>
-            <div class="t" style="left: 480px; top: 970px; width: 420px; height: 150px; display: grid; place-items: center"><span class="lbl" style="font-size: 26px; letter-spacing: 10px">Éclat studio</span></div>
-            <div class="t" style="left: 1100px; top: 491px; width: 460px; height: 818px; border-radius: 56px; box-shadow: inset 0 0 0 10px #000, 0 0 0 2px rgba(212,178,118,.5), 0 40px 80px rgba(0,0,0,.6)">
-              <video id="v0" src="media/r0.mp4" muted playsinline data-start="1.3" data-duration="4.2" data-track-index="10"></video>
-            </div>
-
-            <!-- B : services -->
-            <div class="t pad" style="left: 1700px; top: 350px; width: 300px; height: 300px"><div class="ico"><svg width="48" height="48" viewBox="0 0 24 24"><path d="M3 10v4h3l5 4V6L6 10zM15 9a4 4 0 0 1 0 6M17.5 6.5a8 8 0 0 1 0 11" fill="none" stroke="#d4b276" stroke-width="1.8" stroke-linecap="round" /></svg></div><div class="lbl">01</div><div class="big">Publicités</div></div>
-            <div class="t pad" style="left: 2030px; top: 350px; width: 300px; height: 300px"><div class="ico"><svg width="48" height="48" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4" fill="none" stroke="#d4b276" stroke-width="1.8" /><path d="M13 8l7 4-7 4z" fill="#d4b276" /></svg></div><div class="lbl">02</div><div class="big">Motion design</div></div>
-            <div class="t pad" style="left: 1700px; top: 680px; width: 300px; height: 300px"><div class="ico"><svg width="48" height="48" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5" fill="none" stroke="#d4b276" stroke-width="1.8" /><path d="M10 5h4" stroke="#d4b276" stroke-width="1.8" /></svg></div><div class="lbl">03</div><div class="big">Réseaux sociaux</div></div>
-            <div class="t pad iv" style="left: 2030px; top: 680px; width: 300px; height: 300px"><div class="ico" style="background: #141414"><svg width="48" height="48" viewBox="0 0 24 24"><polygon points="12,3 21,12 12,21 3,12" fill="none" stroke="#d4b276" stroke-width="1.8" /></svg></div><div class="lbl" style="color: #9a7838">04</div><div class="big">Logos animés</div></div>
-            <div class="t pad" style="left: 1700px; top: 1010px; width: 300px; height: 300px"><div class="ico"><svg width="48" height="48" viewBox="0 0 24 24"><path d="M4 8l8-4 8 4-8 4zM4 8v8l8 4 8-4V8M12 12v8" fill="none" stroke="#d4b276" stroke-width="1.8" stroke-linejoin="round" /></svg></div><div class="lbl">05</div><div class="big">Vidéos produits</div></div>
-            <div class="t pad g" style="left: 2030px; top: 1010px; width: 300px; height: 300px"><div class="lbl" style="color: #141008">Sur mesure</div><div class="bod" style="font-size: 92px; line-height: 1.25">100%</div><div style="font-weight: 700; font-size: 24px">pensé pour votre marque</div></div>
-
-            <!-- C : editor timeline + voice waveform -->
-            <div class="t" style="left: 1600px; top: 1450px; width: 900px; height: 520px; padding: 30px; box-sizing: border-box">
-              <div style="display: flex; justify-content: space-between; align-items: center"><span class="lbl">Timeline · projet_marque.hf</span><span style="font-size: 22px; color: #9b927f" id="tc">00:00:00</span></div>
-              <div id="tracks" style="position: relative; margin-top: 26px; height: 380px"></div>
-            </div>
-            <div class="t" style="left: 1050px; top: 1480px; width: 420px; height: 300px; padding: 30px; box-sizing: border-box">
-              <div class="lbl">Voix off</div>
-              <div id="wave" style="display: flex; align-items: center; gap: 6px; height: 170px; margin-top: 20px"></div>
-            </div>
-            <div class="t pad iv" style="left: 1050px; top: 1810px; width: 420px; height: 200px"><div class="lbl" style="color: #9a7838">Sound design</div><div class="big">Musique & effets sur mesure</div></div>
-
-            <!-- D : stats -->
-            <div class="t pad g" style="left: 400px; top: 1400px; width: 300px; height: 300px"><div class="lbl" style="color: #141008">Livraison</div><div class="bod" style="font-size: 132px; line-height: 1.1" id="h72">0h</div></div>
-            <div class="t pad" style="left: 400px; top: 1730px; width: 300px; height: 300px"><div class="lbl">Qualité</div><div class="bod" style="font-size: 140px; line-height: 1.1; color: var(--gold2)">4K</div></div>
-            <div class="t pad" style="left: 730px; top: 1400px; width: 290px; height: 150px"><div class="lbl">Formats</div><div style="font-weight: 800; font-size: 32px; margin-top: 10px">9:16 · 1:1 · 16:9</div></div>
-            <div class="t pad iv" style="left: 730px; top: 1580px; width: 290px; height: 200px"><div class="lbl" style="color: #9a7838">Inclus</div><div class="big" style="font-size: 34px">Révisions illimitées</div></div>
-            <div class="t" style="left: 400px; top: 2060px; width: 620px; height: 220px; padding: 34px; box-sizing: border-box">
-              <div class="lbl">Process</div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 28px; font-weight: 800; font-size: 30px"><span>Brief</span><span style="color: var(--gold)">→</span><span>Création</span><span style="color: var(--gold)">→</span><span>Livraison</span></div>
-            </div>
-
-            <!-- E : showreel row -->
-            <div class="t" style="left: 1150px; top: 2400px; width: 400px; height: 711px"><video id="v1" src="media/r1.mp4" muted playsinline data-start="19.8" data-duration="4.4" data-track-index="11"></video></div>
-            <div class="t" style="left: 1600px; top: 2400px; width: 400px; height: 711px"><video id="v2" src="media/r2.mp4" muted playsinline data-start="19.8" data-duration="4.4" data-track-index="12"></video></div>
-            <div class="t" style="left: 2050px; top: 2400px; width: 400px; height: 711px"><video id="v3" src="media/r3.mp4" muted playsinline data-start="19.8" data-duration="4.4" data-track-index="13"></video></div>
-          </div>
-        </div>
+      <!-- magazine frame (always on) -->
+      <div id="frame">
+        <div class="bar small" style="top: 70px"><span>Éclat Studio</span><span>N°01 — Motion</span></div>
+        <div class="rule" id="ruleT" style="top: 118px"></div>
+        <div class="rule" id="ruleB" style="top: 1800px"></div>
+        <div class="bar small" style="top: 1824px; font-size: 20px"><span>Publicités · Réseaux · Marques</span><span id="tc">00:00</span></div>
       </div>
 
-      <div id="topfade"></div>
-      <div id="caps"></div>
-      <div id="veil"></div>
+      <!-- SCENE 1 : manifesto -->
+      <section id="s1" class="clip" data-start="0" data-duration="4.4" data-track-index="1">
+        <div class="s1w bod" style="top: 260px"><span class="mask"><span id="w1">Votre</span></span></div>
+        <div class="s1w bod" style="top: 440px; text-align: right"><span class="mask"><span id="w2">marque</span></span></div>
+        <div class="s1w bod" style="top: 1260px"><span class="mask"><span id="w3">mérite</span></span></div>
+        <div class="s1w bod" style="top: 1440px; text-align: right; color: var(--ch)"><span class="mask"><span id="w4">mieux.</span></span></div>
+      </section>
+
+      <!-- SCENE 2 : services list -->
+      <section id="s2" class="clip" data-start="4.2" data-duration="5.0" data-track-index="2">
+        <div class="small" id="s2k" style="position: absolute; left: 60px; top: 190px; color: var(--ch)">Nos services</div>
+        <div id="list">
+          <div class="li" style="top: 300px"><span class="n">01</span><span class="x">Publicités</span></div>
+          <div class="li" style="top: 460px"><span class="n">02</span><span class="x">Motion design</span></div>
+          <div class="li" style="top: 620px"><span class="n">03</span><span class="x">Réseaux sociaux</span></div>
+          <div class="li" style="top: 780px"><span class="n">04</span><span class="x">Logos animés</span></div>
+          <div class="li" style="top: 940px"><span class="n">05</span><span class="x">Vidéos produits</span></div>
+        </div>
+        <div class="bod" id="s2q" style="position: absolute; left: 60px; right: 60px; top: 1300px; font-size: 92px; line-height: 1.02">Chaque image, <span style="color: var(--ch)">pensée</span> pour votre marque.</div>
+      </section>
+
+      <!-- SCENE 3 : DA / voice / sound -->
+      <section id="s3" class="clip" data-start="9.2" data-duration="6.2" data-track-index="3">
+        <div style="position: absolute; left: 600px; top: 300px; width: 420px">
+          <div class="small" id="s3k" style="color: var(--ch)">Direction artistique</div>
+          <div class="bod" id="s3t" style="font-size: 96px; line-height: 1; margin-top: 24px">Une identité, <span style="color: var(--ch)">un style.</span></div>
+          <div id="sws" style="display: flex; gap: 16px; margin-top: 50px"><div class="sw" style="background: #3a0c14"></div><div class="sw" style="background: #d8b98a"></div><div class="sw" style="background: #f4ece0"></div><div class="sw" style="background: #140709"></div></div>
+        </div>
+        <div style="position: absolute; left: 60px; right: 60px; top: 1300px">
+          <div class="small" id="s3v" style="color: var(--ch)">Voix off · Sound design</div>
+          <svg id="wave" width="960" height="220" viewBox="0 0 960 220" style="margin-top: 30px"><path id="wp" fill="none" stroke="#f4ece0" stroke-width="3" /></svg>
+        </div>
+      </section>
+
+      <!-- SCENE 4 : 48h -->
+      <section id="s4" class="clip" data-start="15.4" data-duration="4.8" data-track-index="4">
+        <div class="small" id="s4k" style="position: absolute; left: 0; right: 0; top: 330px; text-align: center; color: var(--ch)">Livraison maximum</div>
+        <div id="big48">48h</div>
+        <div id="big48f">48h</div>
+        <div class="bod" id="s4t" style="position: absolute; left: 60px; right: 60px; top: 1080px; text-align: center; font-size: 84px; line-height: 1.05">Prêt à publier, <span style="color: var(--ch)">sans attendre.</span></div>
+        <div id="chips" style="position: absolute; left: 0; right: 0; top: 1330px; display: flex; justify-content: center; gap: 18px"><span class="chip">4K</span><span class="chip">9:16 · 1:1 · 16:9</span><span class="chip">Révisions incluses</span></div>
+      </section>
+
+      <!-- SCENE 5 : showreel carousel title -->
+      <section id="s5" class="clip" data-start="20.0" data-duration="4.4" data-track-index="5">
+        <div class="bod" id="s5t" style="position: absolute; left: 60px; right: 60px; top: 220px; font-size: 110px; line-height: 1">Vos vidéos, <span style="color: var(--ch)">sublimées.</span></div>
+      </section>
+
+      <!-- arches (root level: timed videos) -->
+      <div class="arch" id="aA" style="left: 290px; top: 640px; width: 500px; height: 600px"><video id="v0" src="media/r0.mp4" muted playsinline data-start="2.6" data-duration="4.2" data-track-index="10"></video></div>
+      <div class="arch" id="aB" style="left: 60px; top: 260px; width: 480px; height: 900px"><video id="v1" src="media/r1.mp4" muted playsinline data-start="9.2" data-duration="4.4" data-track-index="11"></video></div>
+      <div class="arch" id="c1" style="left: 80px; top: 560px; width: 440px; height: 860px"><video id="v2" src="media/r2.mp4" muted playsinline data-start="20.0" data-duration="4.4" data-track-index="12"></video></div>
+      <div class="arch" id="c2" style="left: 560px; top: 760px; width: 440px; height: 860px"><video id="v3" src="media/r3.mp4" muted playsinline data-start="20.0" data-duration="4.4" data-track-index="13"></video></div>
+
+      <svg id="badge" viewBox="-115 -115 230 230">
+        <defs><path id="circ" d="M0,-88 a88,88 0 1,1 -0.1,0" /></defs>
+        <circle r="112" fill="none" stroke="#d8b98a" stroke-width="1.5" />
+        <text font-family="Inter" font-weight="700" font-size="19" letter-spacing="6" fill="#d8b98a"><textPath href="#circ">ÉCLAT STUDIO · MOTION DESIGN · 48H · </textPath></text>
+        <text y="22" text-anchor="middle" font-family="Bodoni Moda" font-weight="700" font-size="64" fill="#f4ece0">É</text>
+      </svg>
+
+      <!-- end card -->
+      <div id="paper"></div>
       <div id="end">
-        <svg width="300" height="300" viewBox="-150 -150 300 300"><polygon id="dia" points="0,-130 130,0 0,130 -130,0" fill="none" stroke="#d4b276" stroke-width="4" stroke-dasharray="740" stroke-dashoffset="740" /><text x="0" y="42" text-anchor="middle" font-family="Bodoni Moda" font-weight="700" font-size="130" fill="#d4b276">É</text></svg>
-        <div class="name">Éclat Studio</div>
-        <div class="sub">MOTION DESIGN · PUBLICITÉS</div>
+        <div class="name">Éclat</div>
+        <div class="studio">STUDIO</div>
         <div class="cta">Demandez votre devis</div>
         <div class="note">Réponse sous 24 h · par message</div>
       </div>
+
+      <svg id="grain" width="1080" height="1920"><filter id="gn"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" /></filter><rect width="1080" height="1920" filter="url(#gn)" /></svg>
 
       <audio id="music" src="audio/music.wav" data-start="0" data-duration="29" data-volume="1" data-track-index="20" data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.3,"v":0.85},{"t":0.31,"v":0.85},{"t":0.6,"v":0.25},{"t":2.95,"v":0.25},{"t":3.35,"v":0.85},{"t":4.1,"v":0.85},{"t":4.4,"v":0.25},{"t":8.02,"v":0.25},{"t":8.42,"v":0.85},{"t":9.1,"v":0.85},{"t":9.4,"v":0.25},{"t":14.82,"v":0.25},{"t":15.22,"v":0.85},{"t":16.1,"v":0.85},{"t":16.4,"v":0.25},{"t":19.63,"v":0.25},{"t":20.03,"v":0.85},{"t":24.3,"v":0.85},{"t":24.6,"v":0.25},{"t":27.31,"v":0.25},{"t":27.71,"v":0.85},{"t":28,"v":0.85},{"t":29,"v":0}]}]}'></audio>
       <audio id="vo1" src="audio/vo1.wav" data-start="0.6" data-duration="2.35" data-track-index="21"></audio>
@@ -115,72 +142,72 @@
     </div>
 
     <script>
-      // filler tiles
-      const F = [[150, 300, 260], [140, 620, 200], [1000, 160, 240], [1320, 180, 160], [2380, 300, 220], [2400, 600, 160], [2380, 1050, 260], [150, 1050, 240], [100, 1420, 220], [1100, 1340, 120], [2560, 1500, 200], [2560, 2050, 240], [1700, 2050, 180], [100, 2100, 240], [700, 2350, 300], [2520, 2450, 260], [150, 2450, 220], [1250, 2140, 180]];
-      document.getElementById("fill").innerHTML = F.map(([x, y, s], i) => `<div class="t${i % 5 === 2 ? " g" : ""}" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px"></div>`).join("");
-      // editor tracks
-      const TR = [["#d4b276", [[0, 30], [34, 30]]], ["#f3ede2", [[8, 40], [52, 30]]], ["#5f8f7a", [[0, 64], [68, 28]]], ["#8a6fd1", [[20, 50]]]];
-      document.getElementById("tracks").innerHTML = TR.map(([c, clips], r) => clips.map(([x, w], k) => `<div class="clp" style="position:absolute;top:${r * 92}px;left:${x}%;width:${w}%;height:70px;border-radius:14px;background:${c};opacity:.9"></div>`).join("") + [12, 40, 63].map((x) => `<div style="position:absolute;top:${r * 92 + 26}px;left:${x + r * 3}%;width:18px;height:18px;transform:rotate(45deg);background:#0c0c0d;border:2px solid #fff"></div>`).join("")).join("") + '<div id="ph" style="position:absolute;top:-14px;left:0;width:4px;height:390px;background:#ff4d4d;border-radius:2px"></div>';
-      // waveform
-      document.getElementById("wave").innerHTML = [...Array(30)].map((_, i) => `<div class="wb" style="flex:1;height:${20 + ((i * 53) % 70)}%;border-radius:6px;background:linear-gradient(#f0dcae,#b58d4c)"></div>`).join("");
-      // captions
-      const CAPS = [[0.6, 3.6, "Votre marque mérite <g>mieux.</g>"], [4.4, 8.4, "Publicités. Motion. <g>Réseaux.</g>"], [9.4, 12.0, "Direction <g>artistique.</g>"], [12.0, 15.0, "Voix off & <g>sound design.</g>"], [16.4, 19.6, "Livré en <g>48 h max.</g>"], [20.0, 23.8, "Vos vidéos, <g>sublimées.</g>"]];
-      document.getElementById("caps").innerHTML = CAPS.map((c, i) => `<div class="cap" id="cap${i}">${c[2].replace(/<g>(.*?)<\/g>/g, (_, w) => w.split(" ").map((x) => `<span class="w"><g>${x}</g></span>`).join(" ")).split(/(<span class="w">.*?<\/span>)/).map((p) => (p.startsWith("<span") ? p : p.trim().split(" ").filter(Boolean).map((x) => `<span class="w">${x}</span>`).join(" "))).join(" ")}</div>`).join("");
+      // voice waveform path (deterministic)
+      const pts = [...Array(121)].map((_, i) => { const x = i * 8, a = 70 * Math.abs(Math.sin(i * 0.37) * Math.sin(i * 0.11 + 1)) + 6; return [x, a]; });
+      const wpath = (ph) => "M" + pts.map(([x, a], i) => `${x},${110 + a * Math.sin(i * 0.9 + ph)}`).join(" L");
+      const WP = document.getElementById("wp"), TC = document.getElementById("tc");
 
       const tl = gsap.timeline({ paused: true });
-      // ---- smooth spline camera [t, cx, cy, scale, rotZ, rotX]
-      const K = [
-        [0, 1500, 1500, 0.28, -10, 22], [1.4, 690, 760, 0.85, -4, 12], [3.0, 1330, 900, 0.95, 2, 8], [4.3, 1550, 860, 0.8, 0, 10],
-        [5.6, 2015, 700, 0.95, -2, 8], [7.6, 2015, 1000, 0.98, 2, 8], [9.0, 2030, 1350, 0.8, 0, 10], [10.2, 2050, 1710, 1.0, -2, 7],
-        [12.0, 1900, 1700, 1.02, 0, 7], [13.3, 1260, 1680, 1.05, 2, 8], [15.0, 1100, 1700, 0.95, 0, 9], [16.6, 720, 1720, 1.0, -2, 8],
-        [19.0, 700, 1900, 1.02, 1, 8], [20.3, 1350, 2740, 0.95, -2, 8], [23.4, 2250, 2760, 1.0, 2, 8], [25.0, 1600, 1700, 0.3, -9, 20], [29, 1600, 1650, 0.35, -4, 16],
-      ];
-      const M = K.map((k, i) => k.map((v, j) => (j === 0 || i === 0 || i === K.length - 1 ? 0 : (K[i + 1][j] - K[i - 1][j]) / (K[i + 1][0] - K[i - 1][0]))));
-      function camAt(t) {
-        let i = 0;
-        while (i < K.length - 2 && t > K[i + 1][0]) i++;
-        const a = K[i], b = K[i + 1], h = b[0] - a[0], u = Math.min(1, Math.max(0, (t - a[0]) / h));
-        const h00 = 2 * u ** 3 - 3 * u ** 2 + 1, h10 = u ** 3 - 2 * u ** 2 + u, h01 = -2 * u ** 3 + 3 * u ** 2, h11 = u ** 3 - u ** 2;
-        return a.map((_, j) => h00 * a[j] + h10 * h * M[i][j] + h01 * b[j] + h11 * h * M[i + 1][j]);
-      }
-      const W = document.getElementById("world"), CM = document.getElementById("cam"), TC = document.getElementById("tc"), clock = { t: 0 };
-      const apply = () => {
-        const [, cx, cy, sc, rz, rx] = camAt(clock.t);
-        W.style.transform = `translate(${-cx}px, ${-cy}px)`;
-        CM.style.transform = `rotateX(${rx}deg) rotate(${rz}deg) scale(${sc})`;
-        const f = Math.floor(clock.t * 25);
-        TC.textContent = `00:${String(Math.floor(f / 25)).padStart(2, "0")}:${String(f % 25).padStart(2, "0")}`;
-      };
-      apply();
-      tl.fromTo(clock, { t: 0 }, { t: 29, duration: 29, ease: "none", onUpdate: apply }, 0);
+      const E = "expo.out";
+      // frame
+      tl.fromTo(["#ruleT", "#ruleB"], { scaleX: 0 }, { scaleX: 1, duration: 1.2, ease: "power3.inOut" }, 0.1);
+      tl.fromTo("#frame .bar", { opacity: 0 }, { opacity: 1, duration: 0.8 }, 0.4);
+      tl.fromTo("#badge", { rotation: 0 }, { rotation: 360, duration: 29, ease: "none" }, 0);
+      tl.fromTo("#badge", { opacity: 0 }, { opacity: 1, duration: 1 }, 0.5);
+      tl.to("#badge", { opacity: 0, duration: 0.4 }, 24.0);
+      const clk = { t: 0 };
+      tl.fromTo(clk, { t: 0 }, { t: 29, duration: 29, ease: "none", onUpdate: () => { TC.textContent = "00:" + String(Math.floor(clk.t)).padStart(2, "0"); WP.setAttribute("d", wpath(clk.t * 6)); } }, 0);
 
-      // ---- captions
-      CAPS.forEach(([a, b], i) => {
-        const id = "#cap" + i;
-        tl.set(id, { opacity: 1 }, a);
-        tl.fromTo(id + " .w", { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, stagger: 0.08, ease: "power3.out" }, a);
-        tl.to(id + " .w", { opacity: 0, y: -24, filter: "blur(10px)", duration: 0.3, stagger: 0.03, ease: "power2.in" }, b - 0.32);
-        tl.set(id, { opacity: 0 }, b);
-      });
+      // ---- S1 manifesto: mask reveals, then the arch opens between the words
+      ["#w1", "#w2", "#w3", "#w4"].forEach((w, i) => tl.fromTo(w, { yPercent: 105 }, { yPercent: 0, duration: 0.9, ease: E }, 0.5 + i * 0.45));
+      tl.fromTo("#aA", { clipPath: "inset(100% 0% 0% 0%)", scale: 1.15 }, { clipPath: "inset(0% 0% 0% 0%)", scale: 1, duration: 1.1, ease: "power4.inOut" }, 2.5);
+      tl.to(["#w1", "#w2", "#w3", "#w4"], { yPercent: -105, duration: 0.6, stagger: 0.05, ease: "power3.in" }, 3.8);
+      // arch glides to the right column for the services list
+      tl.to("#aA", { x: 410, y: 540, scale: 0.64, transformOrigin: "0% 0%", duration: 1.0, ease: "power3.inOut" }, 4.0);
 
-      // ---- details
-      tl.fromTo("#ph", { x: 0 }, { x: 800, duration: 6, ease: "none" }, 9.2);
-      tl.fromTo(".clp", { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.6, stagger: 0.08, ease: "power3.out" }, 9.4);
-      tl.fromTo(".wb", { scaleY: 0.25 }, { scaleY: 1, duration: 0.18, stagger: { each: 0.03, repeat: 21, yoyo: true }, ease: "sine.inOut" }, 12.0);
-      const h = { v: 0 }, H = document.getElementById("h72");
-      tl.fromTo(h, { v: 0 }, { v: 48, duration: 1.4, ease: "power2.out", onUpdate: () => (H.textContent = Math.round(h.v) + "h") }, 16.4);
+      // ---- S2 services
+      tl.fromTo("#s2k", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.6, ease: E }, 4.3);
+      tl.fromTo("#list .li", { opacity: 0, x: -80, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, x: 0, clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, stagger: 0.38, ease: E }, 4.4);
+      [0, 1, 2, 3, 4].forEach((i) => tl.fromTo(`#list .li:nth-child(${i + 1}) .x`, { color: "#f4ece0" }, { color: "#d8b98a", duration: 0.3, yoyo: true, repeat: 1, immediateRender: false }, 4.6 + i * 0.7));
+      tl.fromTo("#s2q", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.9, ease: E }, 7.2);
+      tl.to(["#list", "#s2q", "#s2k"], { opacity: 0, y: -60, duration: 0.5, ease: "power2.in" }, 8.7);
+      tl.to("#aA", { opacity: 0, scale: 0.58, duration: 0.4, ease: "power2.in" }, 6.4);
 
-      // ---- end card
-      tl.fromTo("#world", { filter: "blur(0px)" }, { filter: "blur(16px)", duration: 1.0, ease: "power2.inOut", immediateRender: false }, 24.2);
-      tl.to("#veil", { opacity: 1, duration: 0.9 }, 24.3);
-      tl.to("#end", { opacity: 1, duration: 0.1 }, 24.5);
-      tl.fromTo("#dia", { attr: { "stroke-dashoffset": 740 } }, { attr: { "stroke-dashoffset": 0 }, duration: 1.2, ease: "power2.inOut" }, 24.5);
-      tl.fromTo("#end svg text", { opacity: 0, scale: 0.6, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.6)" }, 24.8);
-      tl.fromTo("#end .name", { opacity: 0, y: 40, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, 25.0);
-      tl.fromTo("#end .sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 25.3);
-      tl.fromTo("#end .cta", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 25.7);
+      // ---- S3 DA split screen
+      tl.fromTo("#aB", { clipPath: "inset(0% 0% 100% 0%)", yPercent: 6 }, { clipPath: "inset(0% 0% 0% 0%)", yPercent: 0, duration: 1.1, ease: "power4.inOut" }, 9.1);
+      tl.fromTo("#s3k", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 9.5);
+      tl.fromTo("#s3t", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.9, ease: E }, 9.7);
+      tl.fromTo("#sws .sw", { scale: 0 }, { scale: 1, duration: 0.5, stagger: 0.12, ease: "back.out(2)" }, 10.4);
+      tl.fromTo("#s3v", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 11.9);
+      tl.fromTo("#wave", { opacity: 0, clipPath: "inset(0% 100% 0% 0%)" }, { opacity: 1, clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "power3.out" }, 12.0);
+      tl.to("#aB", { yPercent: -110, duration: 0.8, ease: "power3.in" }, 13.4);
+      tl.to(["#s3k", "#s3t", "#sws", "#s3v", "#wave"], { opacity: 0, y: -50, duration: 0.5, stagger: 0.05, ease: "power2.in" }, 14.8);
+
+      // ---- S4 48h
+      tl.fromTo("#s4k", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: E }, 15.5);
+      tl.fromTo("#big48", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 1.0, ease: E }, 15.6);
+      tl.fromTo("#big48f", { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "power3.inOut" }, 16.4);
+      tl.fromTo("#s4t", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.9, ease: E }, 17.0);
+      tl.fromTo("#chips .chip", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: E }, 17.6);
+      tl.to(["#big48", "#big48f", "#s4k", "#s4t", "#chips"], { opacity: 0, scale: 0.94, duration: 0.5, ease: "power2.in" }, 19.6);
+
+      // ---- S5 carousel of arches with parallax
+      tl.fromTo("#s5t", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.9, ease: E }, 20.1);
+      tl.fromTo("#c1", { x: -700, rotation: -4 }, { x: 0, rotation: -2, duration: 1.1, ease: E }, 20.0);
+      tl.fromTo("#c2", { x: 700, rotation: 4 }, { x: 0, rotation: 2, duration: 1.1, ease: E }, 20.15);
+      tl.to("#c1", { y: -60, rotation: -1, duration: 3.0, ease: "sine.inOut" }, 21.1);
+      tl.to("#c2", { y: 60, rotation: 1, duration: 2.8, ease: "sine.inOut" }, 21.3);
+      tl.to(["#c1", "#c2", "#s5t"], { opacity: 0, duration: 0.4 }, 24.0);
+
+      // ---- end: ivory paper circle wipe + logo
+      tl.fromTo("#paper", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(75% at 50% 50%)", duration: 1.0, ease: "power3.inOut" }, 24.1);
+      tl.fromTo("#end .name", { opacity: 0, y: 80, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.0, ease: E }, 24.7);
+      tl.fromTo("#end .studio", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: E }, 25.1);
+      tl.fromTo("#end .cta", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.8)" }, 25.7);
       tl.to("#end .cta", { scale: 1.04, duration: 0.45, yoyo: true, repeat: 3, ease: "sine.inOut" }, 26.4);
       tl.fromTo("#end .note", { opacity: 0 }, { opacity: 1, duration: 0.6 }, 26.2);
+      tl.set("#end", { opacity: 0 }, 0);
+      tl.set("#end", { opacity: 1 }, 24.6);
 
       window.__timelines["main"] = tl;
     </script>
