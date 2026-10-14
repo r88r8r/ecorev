@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Location Premium — Pub</title>
+    <script src="gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("fonts/inter-latin-500-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("fonts/inter-latin-700-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 900; src: url("fonts/inter-latin-900-normal.woff2") format("woff2"); }
+      :root { --blue: #3d7bff; --ink: #0a0e1c; }
+      body { margin: 0; background: var(--ink); color: #fff; font-family: "Inter", sans-serif; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: radial-gradient(120% 80% at 50% 40%, #1a2550 0%, #0d1330 55%, #070a18 100%); }
+      #grid { position: absolute; left: -200px; top: -200px; width: 1480px; height: 2400px; opacity: 0.35; }
+      .cube { position: absolute; width: 120px; }
+      .clip { position: absolute; inset: 0; }
+      .wrap { position: absolute; inset: 0; }
+      .kicker { position: absolute; left: 0; right: 0; text-align: center; font-weight: 700; font-size: 30px; letter-spacing: 8px; color: #8fb1ff; text-transform: uppercase; }
+      .h1 { position: absolute; left: 60px; right: 60px; text-align: center; font-weight: 900; font-size: 86px; line-height: 1.02; letter-spacing: -2px; }
+      .h1 span { display: block; }
+      .h1 em { font-style: normal; color: var(--blue); }
+
+      /* ---------- Phone ---------- */
+      #stage { position: absolute; left: 0; top: 330px; width: 1080px; height: 1400px; perspective: 2400px; }
+      #phone { position: absolute; left: 270px; top: 120px; width: 540px; height: 1100px; transform-style: preserve-3d; }
+      .slab { position: absolute; inset: 0; border-radius: 76px; background: #2b3352; box-shadow: inset 0 0 0 3px #4a5682; }
+      .screen { position: absolute; inset: 0; border-radius: 76px; background: #10131d; border: 14px solid #05070d; overflow: hidden; box-sizing: border-box; }
+      .back { position: absolute; inset: 0; border-radius: 76px; background: linear-gradient(140deg, #5b6a9a, #2a3150 60%, #1b2140); }
+      .back .cam { position: absolute; left: 40px; top: 40px; width: 170px; height: 170px; border-radius: 44px; background: #11162a; }
+      .island { position: absolute; left: 50%; top: 18px; width: 150px; height: 42px; margin-left: -75px; border-radius: 22px; background: #000; }
+      .status { position: absolute; left: 44px; right: 44px; top: 22px; display: flex; justify-content: space-between; font-weight: 700; font-size: 26px; }
+      .chathead { position: absolute; left: 0; right: 0; top: 80px; height: 120px; display: flex; align-items: center; gap: 18px; padding: 0 30px; background: #171b28; border-bottom: 1px solid #262c40; }
+      .avatar { width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, #3d7bff, #7aa6ff); display: grid; place-items: center; font-weight: 900; font-size: 28px; }
+      .who b { display: block; font-size: 30px; }
+      .who i { display: block; font-style: normal; font-size: 22px; color: #3ddc84; }
+      .bubble { position: absolute; max-width: 360px; padding: 20px 24px; border-radius: 30px; font-size: 27px; line-height: 1.3; font-weight: 500; }
+      .me { right: 24px; background: var(--blue); border-bottom-right-radius: 8px; }
+      .them { left: 24px; background: #262c40; border-bottom-left-radius: 8px; }
+      .them b { color: #9fe8bf; }
+      .typing { position: absolute; left: 24px; width: 110px; height: 60px; border-radius: 30px; background: #262c40; display: flex; align-items: center; justify-content: center; gap: 10px; }
+      .typing span { width: 14px; height: 14px; border-radius: 50%; background: #9aa3c0; display: block; }
+      .inputbar { position: absolute; left: 24px; right: 24px; bottom: 30px; height: 78px; border-radius: 39px; background: #1d2232; color: #6d7593; font-size: 25px; display: flex; align-items: center; padding-left: 30px; }
+      .notif { position: absolute; left: -40px; top: -40px; width: 620px; height: 130px; border-radius: 34px; background: rgba(245, 247, 255, 0.96); color: #0a0e1c; display: flex; align-items: center; gap: 22px; padding: 0 28px; box-sizing: border-box; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45); }
+      .notif .ic { width: 74px; height: 74px; border-radius: 20px; background: var(--blue); display: grid; place-items: center; flex: none; }
+      .notif b { display: block; font-size: 28px; }
+      .notif i { display: block; font-style: normal; font-size: 24px; color: #4a5270; }
+      .badge { position: absolute; left: 330px; top: 760px; width: 300px; height: 300px; border-radius: 50%; background: #2fd47a; display: grid; place-items: center; box-shadow: 0 0 0 18px rgba(47, 212, 122, 0.25), 0 40px 80px rgba(0, 0, 0, 0.5); }
+      #pshadow { position: absolute; left: 240px; top: 1270px; width: 600px; height: 90px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.65), transparent); }
+
+      /* ---------- Fleet ---------- */
+      #plat { position: absolute; left: 90px; top: 760px; width: 900px; }
+      .carw { position: absolute; left: 150px; top: 610px; width: 900px; }
+      .carw svg { width: 100%; height: auto; display: block; overflow: visible; }
+      .label { position: absolute; left: 60px; right: 60px; top: 1360px; text-align: center; }
+      .label .brand { font-weight: 700; font-size: 32px; letter-spacing: 6px; color: #8fb1ff; }
+      .label .name { font-weight: 900; font-size: 92px; letter-spacing: -2px; margin-top: 6px; }
+      .chips { display: flex; justify-content: center; gap: 18px; margin-top: 26px; }
+      .chip { padding: 14px 26px; border-radius: 40px; border: 2px solid rgba(143, 177, 255, 0.5); background: rgba(61, 123, 255, 0.14); font-weight: 700; font-size: 28px; }
+      .count { position: absolute; right: 60px; top: 140px; font-weight: 900; font-size: 34px; color: #8fb1ff; }
+      .count b { color: #fff; }
+
+      /* ---------- End ---------- */
+      .mini { position: absolute; width: 520px; }
+      .mini svg { width: 100%; height: auto; display: block; overflow: visible; }
+      .cta { position: absolute; left: 190px; width: 700px; top: 1600px; height: 120px; border-radius: 60px; background: var(--blue); display: flex; align-items: center; justify-content: center; gap: 20px; font-weight: 900; font-size: 40px; box-shadow: 0 20px 60px rgba(61, 123, 255, 0.5); }
+      .sub { position: absolute; left: 0; right: 0; top: 1760px; text-align: center; font-size: 28px; font-weight: 500; color: #a9b6dc; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="23.5">
+      <svg id="grid" viewBox="0 0 1480 2400">
+        <defs>
+          <pattern id="iso" width="138.56" height="80" patternUnits="userSpaceOnUse">
+            <path d="M0 40 L69.28 0 L138.56 40 L69.28 80 Z" fill="none" stroke="#5f7cff" stroke-width="1.4" />
+          </pattern>
+        </defs>
+        <rect width="1480" height="2400" fill="url(#iso)" />
+      </svg>
+      <div id="cubes"></div>
+
+      <!-- SCENE 1 : conversation -->
+      <section id="s1" class="clip" data-start="0" data-duration="9.6" data-track-index="1">
+        <div class="wrap" id="s1w">
+          <div class="kicker" id="k1" style="top: 120px">Location Premium</div>
+          <div class="h1" id="t1" style="top: 180px"><span>Votre voiture,</span><span>en <em>1 message.</em></span></div>
+          <div id="pshadow"></div>
+          <div id="stage">
+            <div id="phone">
+              <div class="back" style="transform: translateZ(-22px) rotateY(180deg)"><div class="cam"></div></div>
+              <div id="slabs"></div>
+              <div class="screen" style="transform: translateZ(22px)">
+                <div class="island"></div>
+                <div class="status"><span>9:41</span><span>5G</span></div>
+                <div class="chathead">
+                  <div class="avatar">LP</div>
+                  <div class="who"><b>Location Premium</b><i>en ligne</i></div>
+                </div>
+                <div class="bubble me" id="b1" style="top: 240px">Bonjour ! La Golf 8.5 R blanche est disponible ce week-end ?</div>
+                <div class="typing" id="ty1" style="top: 430px"><span></span><span></span><span></span></div>
+                <div class="bubble them" id="b2" style="top: 430px">Oui ! Elle est libre <b>du vendredi 10h au dimanche 18h.</b></div>
+                <div class="bubble me" id="b3" style="top: 640px">Top, je prends ces dates !</div>
+                <div class="typing" id="ty2" style="top: 760px"><span></span><span></span><span></span></div>
+                <div class="bubble them" id="b4" style="top: 760px"><b>Parfait !</b> Votre réservation est confirmée. À vendredi.</div>
+                <div class="inputbar">Message…</div>
+              </div>
+              <div style="position: absolute; inset: 0; transform: translateZ(110px); transform-style: preserve-3d"><div class="notif" id="notif">
+                <div class="ic"><svg width="40" height="40" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z" fill="#fff" /></svg></div>
+                <div><b>Nouveau message</b><i>Client : « La Golf 8.5 R blanche… »</i></div>
+              </div></div>
+              <div id="badgeZ" style="position: absolute; inset: 0; transform: translateZ(160px); transform-style: preserve-3d">
+                <div class="badge" id="badge"><svg width="160" height="160" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCENE 2 : la flotte -->
+      <section id="s2" class="clip" data-start="9.3" data-duration="10.5" data-track-index="2">
+        <div class="wrap" id="s2w">
+          <div class="kicker" id="k2" style="top: 140px">La flotte</div>
+          <div class="h1" id="t2" style="top: 200px"><span>Choisissez</span><span><em>votre caractère.</em></span></div>
+          <div class="count" id="cnt"><b id="cntn">01</b> / 03</div>
+          <svg id="plat" viewBox="-580 -330 1160 660"></svg>
+          <div class="carw" id="c1"></div>
+          <div class="carw" id="c2"></div>
+          <div class="carw" id="c3"></div>
+          <div class="label" id="l1"><div class="brand">VOLKSWAGEN</div><div class="name">Golf 8.5 R</div><div class="chips"><span class="chip">Blanche</span><span class="chip">333 ch</span><span class="chip">4MOTION</span></div></div>
+          <div class="label" id="l2"><div class="brand">BMW</div><div class="name">Série 4 420d</div><div class="chips"><span class="chip">Pack M</span><span class="chip">190 ch</span><span class="chip">Coupé</span></div></div>
+          <div class="label" id="l3"><div class="brand">VOLKSWAGEN</div><div class="name">Golf 8.5 R</div><div class="chips"><span class="chip">Noire</span><span class="chip">333 ch</span><span class="chip">4MOTION</span></div></div>
+        </div>
+      </section>
+
+      <!-- SCENE 3 : CTA -->
+      <section id="s3" class="clip" data-start="19.6" data-duration="3.9" data-track-index="3">
+        <div class="wrap" id="s3w">
+          <div class="kicker" id="k3" style="top: 150px">Location Premium</div>
+          <div class="h1" id="t3" style="top: 210px"><span>Un message.</span><span><em>Les clés.</em></span></div>
+          <div class="mini" id="m1" style="left: 20px; top: 640px"></div>
+          <div class="mini" id="m2" style="left: 280px; top: 860px"></div>
+          <div class="mini" id="m3" style="left: 540px; top: 1080px"></div>
+          <div class="cta" id="cta"><svg width="50" height="50" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z" fill="#fff" /></svg>Réservez par message</div>
+          <div class="sub" id="sub">Golf 8.5 R blanche · BMW 420d Pack M · Golf 8.5 R noire</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // ---------- isometric helpers ----------
+      const C = 0.866, S = 0.5;
+      const P = (x, y, z) => [(x - y) * C, (x + y) * S - z];
+      const pts = (a) => a.map((p) => p.map((v) => v.toFixed(1)).join(",")).join(" ");
+      const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+      const sh = (h, f) => "rgb(" + hex(h).map((v) => Math.round(f > 0 ? v + (255 - v) * f : v * (1 + f))).join(",") + ")";
+      const poly = (a, fill, extra = "") => `<polygon points="${pts(a)}" fill="${fill}" ${extra}/>`;
+
+      // Phone thickness slabs
+      document.getElementById("slabs").innerHTML = [...Array(9)].map((_, i) => `<div class="slab" style="transform:translateZ(${-20 + i * 5}px)"></div>`).join("");
+
+      // Floating iso cubes (decor)
+      function cube(s, col) {
+        const t = [P(0, 0, s), P(s, 0, s), P(s, s, s), P(0, s, s)], l = [P(0, s, s), P(s, s, s), P(s, s, 0), P(0, s, 0)], r = [P(s, 0, s), P(s, s, s), P(s, s, 0), P(s, 0, 0)];
+        return `<svg viewBox="${-s * C - 4} ${-s - 4} ${2 * s * C + 8} ${2 * s + 8}">${poly(t, sh(col, 0.35))}${poly(l, col)}${poly(r, sh(col, -0.35))}</svg>`;
+      }
+      const cubeDefs = [[60, 300, 90, "#3d7bff"], [900, 520, 70, "#5d6bff"], [110, 1480, 60, "#2fd47a"], [880, 1650, 100, "#3d7bff"], [940, 1150, 50, "#8fb1ff"]];
+      document.getElementById("cubes").innerHTML = cubeDefs.map((c, i) => `<div class="cube" id="cb${i}" style="left:${c[0]}px;top:${c[1]}px;width:${c[2]}px;opacity:.55">${cube(100, c[3])}</div>`).join("");
+
+      // Platform (iso tile with glow)
+      (function () {
+        const q = (s, z) => [P(-s, -s, z), P(s, -s, z), P(s, s, z), P(-s, s, z)];
+        const s = 300, d = 26;
+        const side1 = [P(s, -s, 0), P(s, s, 0), P(s, s, -d), P(s, -s, -d)], side2 = [P(-s, s, 0), P(s, s, 0), P(s, s, -d), P(-s, s, -d)];
+        document.getElementById("plat").innerHTML = poly(side1, "#141b3a") + poly(side2, "#1c2550") + poly(q(s, 0), "#202a5c", 'stroke="#3d7bff" stroke-width="3"') + poly(q(s - 40, 0), "none", 'stroke="#3d7bff" stroke-opacity=".35" stroke-width="2"');
+      })();
+
+      // ---------- Isometric car generator ----------
+      function car(id, o) {
+        const W = 190, c = o.color, out = [], all = [];
+        const add = (s, a) => { out.push(s); a && all.push(...a); };
+        const prof = o.prof;
+        // ground shadow
+        add(poly([P(-20, -20, 0), P(o.len + 20, -20, 0), P(o.len + 20, W + 20, 0), P(-20, W + 20, 0)], "#000", `opacity=".45" filter="url(#${id}b)"`));
+        // far wheels
+        const wheel = (x, y, r) => [...Array(28)].map((_, i) => P(x + r * Math.cos((i / 28) * 6.283), y, o.r + r * Math.sin((i / 28) * 6.283)));
+        o.wx.forEach((x) => add(poly(wheel(x, 14, o.r), "#0b0c10")));
+        // body strips (extruded profile)
+        const strips = [];
+        for (let i = 0; i < prof.length; i++) {
+          const a = prof[i], b = prof[(i + 1) % prof.length];
+          const dx = b[0] - a[0], dz = b[1] - a[1], L = Math.hypot(dx, dz), nx = -dz / L, nz = dx / L;
+          if (nx + nz <= 0.02) continue;
+          const q = [P(a[0], 0, a[1]), P(b[0], 0, b[1]), P(b[0], W, b[1]), P(a[0], W, a[1])];
+          const fill = a[2] === "g" ? `url(#${id}g)` : sh(c, 0.22 * nz - 0.28 * nx);
+          strips.push(q);
+          add(poly(q, fill, 'stroke="rgba(0,0,0,.25)" stroke-width="1"'), q);
+        }
+        // side face
+        const side = prof.map((p) => P(p[0], W, p[1]));
+        add(poly(side, `url(#${id}s)`, 'stroke="rgba(0,0,0,.3)" stroke-width="1.5"'), side);
+        // windows, pillar, door line
+        add(poly(o.win.map((p) => P(p[0], W + 0.5, p[1])), `url(#${id}g)`));
+        add(`<polyline points="${pts([P(o.pillar, W + 1, o.win[0][1] - 4), P(o.pillar, W + 1, o.win[2][1] + 4)])}" stroke="${sh(c, -0.1)}" stroke-width="12"/>`);
+        add(`<polyline points="${pts(o.doors.map((d) => P(d[0], W + 1, d[1])))}" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="2"/>`);
+        // mirror
+        add(poly([P(o.mir, W, 96), P(o.mir + 16, W + 22, 100), P(o.mir + 16, W + 22, 112), P(o.mir, W, 110)], sh(c, -0.15)));
+        // taillight + side marker
+        add(poly([P(1, W + 1, o.tl[0]), P(26, W + 1, o.tl[0] + 2), P(24, W + 1, o.tl[1]), P(3, W + 1, o.tl[1])], "#ff2e4d"));
+        // front face details (x = front plane)
+        const fx = o.fx, F = (y1, y2, z1, z2) => [P(fx + 0.5, y1, z1), P(fx + 0.5, y2, z1), P(fx + 0.5, y2, z2), P(fx + 0.5, y1, z2)];
+        if (o.kind === "bmw") {
+          add(poly(F(70, 92, 38, 64), "#07080b", 'stroke="#9aa3b5" stroke-width="2"'));
+          add(poly(F(98, 120, 38, 64), "#07080b", 'stroke="#9aa3b5" stroke-width="2"'));
+          add(poly(F(14, 58, 58, 66), "#dff1ff"));
+          add(poly(F(132, 176, 58, 66), "#dff1ff"));
+        } else {
+          add(poly(F(20, 170, 40, 54), "#07080b"));
+          add(poly(F(16, 174, 60, 63), "#e8f3ff"));
+          add(poly(F(14, 52, 58, 68), "#e8f3ff"));
+          add(poly(F(138, 176, 58, 68), "#e8f3ff"));
+          add(poly(F(86, 104, 46, 50), "#3d7bff"));
+        }
+        // near wheels (tyre thickness + rim + spokes)
+        o.wx.forEach((x) => {
+          add(poly(wheel(x, W - 16, o.r), "#0b0c10"));
+          add(poly(wheel(x, W + 2, o.r), "#15171d"));
+          add(poly(wheel(x, W + 3, o.r * 0.66), o.rim));
+          for (let k = 0; k < 5; k++) {
+            const t = (k / 5) * 6.283 + 0.3;
+            add(`<polyline points="${pts([P(x, W + 4, o.r), P(x + o.r * 0.6 * Math.cos(t), W + 4, o.r + o.r * 0.6 * Math.sin(t))])}" stroke="${sh(o.rim.length > 4 ? o.rim : "#999999", -0.45)}" stroke-width="5"/>`);
+          }
+          add(poly(wheel(x, W + 5, o.r * 0.16), "#20232b"));
+          if (o.caliper) add(poly(wheel(x - o.r * 0.3, W + 2.5, o.r * 0.16), o.caliper));
+        });
+        // bounds
+        const xs = all.map((p) => p[0]), ys = all.map((p) => p[1]);
+        const x0 = Math.min(...xs) - 30, y0 = Math.min(...ys) - 30, w = Math.max(...xs) - x0 + 30, h = Math.max(...ys) - y0 + 60;
+        const shine = `<g clip-path="url(#${id}c)"><rect id="${id}sh" x="${x0 - 300}" y="${y0}" width="120" height="${h}" fill="url(#${id}w)" transform="skewX(-25)"/></g>`;
+        const defs = `<defs>
+          <linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sh(c, 0.18)}"/><stop offset=".55" stop-color="${c}"/><stop offset="1" stop-color="${sh(c, -0.35)}"/></linearGradient>
+          <linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b5378"/><stop offset=".45" stop-color="#0d1422"/><stop offset=".6" stop-color="#22324d"/><stop offset="1" stop-color="#090d16"/></linearGradient>
+          <linearGradient id="${id}w" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+          <filter id="${id}b" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14"/></filter>
+          <clipPath id="${id}c">${[side, ...strips].map((a) => poly(a, "#fff")).join("")}</clipPath></defs>`;
+        return `<svg viewBox="${x0.toFixed(0)} ${y0.toFixed(0)} ${w.toFixed(0)} ${h.toFixed(0)}">${defs}${out.join("")}${shine}</svg>`;
+      }
+
+      const GOLF = {
+        len: 442, fx: 442, r: 38, wx: [92, 352], pillar: 172, mir: 316,
+        prof: [[0, 30], [2, 76], [10, 106], [50, 140], [258, 143, "g"], [332, 100], [418, 88], [440, 72], [442, 34], [430, 20], [14, 20]],
+        win: [[22, 106], [58, 135], [252, 138], [322, 102]],
+        doors: [[172, 30], [172, 100]], tl: [80, 96], kind: "golf", caliper: "#3d7bff",
+      };
+      const BMW = {
+        len: 480, fx: 480, r: 40, wx: [102, 382], pillar: 250, mir: 334,
+        prof: [[0, 32], [0, 72], [24, 90], [150, 132], [276, 135, "g"], [352, 94], [452, 80], [478, 62], [480, 34], [468, 20], [14, 20]],
+        win: [[46, 92], [150, 127], [270, 130], [342, 96]],
+        doors: [[250, 30], [250, 92]], tl: [74, 88], kind: "bmw", caliper: "#1b4dd8",
+      };
+      const cars = [
+        Object.assign({}, GOLF, { color: "#eef1f6", rim: "#c9ced8" }),
+        Object.assign({}, BMW, { color: "#1e3d35", rim: "#3a3f4a" }),
+        Object.assign({}, GOLF, { color: "#1a1c23", rim: "#2c3038" }),
+      ];
+      cars.forEach((o, i) => {
+        document.getElementById("c" + (i + 1)).innerHTML = car("k" + i, o);
+        document.getElementById("m" + (i + 1)).innerHTML = car("n" + i, o);
+      });
+
+      // ---------- Timeline ----------
+      const tl = gsap.timeline({ paused: true });
+      // background drift
+      tl.fromTo("#grid", { y: 0 }, { y: 160, duration: 23.5, ease: "none" }, 0);
+      cubeDefs.forEach((_, i) => tl.fromTo("#cb" + i, { y: 0, rotation: 0 }, { y: -60 - i * 12, rotation: i % 2 ? 8 : -8, duration: 23.5, ease: "sine.inOut" }, 0));
+
+      // Scene 1 — phone spin-in
+      tl.fromTo("#k1", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.fromTo("#t1 span", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" }, 0.3);
+      tl.fromTo("#phone", { rotationY: -380, rotationX: 30, rotationZ: -8, y: 500, scale: 0.55 }, { rotationY: -22, rotationX: 14, rotationZ: 3, y: 0, scale: 1, duration: 1.8, ease: "power4.out" }, 0);
+      tl.fromTo("#pshadow", { opacity: 0, scaleX: 0.4 }, { opacity: 1, scaleX: 1, duration: 1.6, ease: "power3.out" }, 0.2);
+      tl.to("#phone", { rotationY: 16, rotationX: 10, rotationZ: -2, duration: 6.6, ease: "sine.inOut" }, 1.8);
+      tl.to("#pshadow", { x: 30, duration: 6.6, ease: "sine.inOut" }, 1.8);
+      // notification banner
+      tl.fromTo("#notif", { opacity: 0, y: -120 }, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.6)" }, 1.0);
+      tl.to("#notif", { opacity: 0, y: -140, duration: 0.45, ease: "power2.in" }, 2.6);
+      // chat
+      const pop = (sel, t, from) => tl.fromTo(sel, { opacity: 0, scale: 0.6, y: 30, transformOrigin: from }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.8)" }, t);
+      pop("#b1", 1.7, "100% 100%");
+      const typing = (sel, t, d) => {
+        tl.fromTo(sel, { opacity: 0, scale: 0.6, transformOrigin: "0% 100%" }, { opacity: 1, scale: 1, duration: 0.25 }, t);
+        tl.fromTo(sel + " span", { y: 0 }, { y: -10, duration: 0.2, stagger: 0.1, repeat: Math.round(d / 0.4), yoyo: true, ease: "sine.inOut" }, t);
+        tl.to(sel, { opacity: 0, duration: 0.12 }, t + d);
+      };
+      typing("#ty1", 2.8, 1.0);
+      pop("#b2", 3.9, "0% 100%");
+      pop("#b3", 5.3, "100% 100%");
+      typing("#ty2", 6.2, 0.9);
+      pop("#b4", 7.2, "0% 100%");
+      tl.fromTo("#badge", { opacity: 0, scale: 0, rotation: -40 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.6, ease: "back.out(2)" }, 7.5);
+      tl.to("#badge", { opacity: 0, scale: 1.4, duration: 0.4 }, 8.7);
+      // exit
+      tl.to("#phone", { rotationY: 120, rotationX: 40, y: -900, scale: 0.4, duration: 0.9, ease: "power3.in" }, 8.7);
+      tl.to(["#t1", "#k1", "#pshadow"], { opacity: 0, y: -60, duration: 0.5, ease: "power2.in" }, 8.8);
+
+      // Scene 2 — fleet
+      tl.fromTo("#k2", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5 }, 9.4);
+      tl.fromTo("#t2 span", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" }, 9.45);
+      tl.fromTo("#cnt", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 9.6);
+      tl.fromTo("#plat", { opacity: 0, y: 200, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power3.out" }, 9.4);
+      [9.8, 13.1, 16.4].forEach((t, i) => {
+        const c = "#c" + (i + 1), l = "#l" + (i + 1);
+        tl.fromTo(c, { x: -780, y: -450, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 1.0, ease: "power4.out" }, t);
+        tl.to(c, { rotation: -1.2, duration: 0.18, yoyo: true, repeat: 1, ease: "sine.inOut" }, t + 0.8);
+        tl.fromTo("#k" + i + "sh", { attr: { x: -900 } }, { attr: { x: 900 } , duration: 1.0, ease: "power2.inOut" }, t + 1.1);
+        tl.fromTo(l + " .brand", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, t + 0.5);
+        tl.fromTo(l + " .name", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, t + 0.6);
+        tl.fromTo(l + " .chip", { opacity: 0, y: 30, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.08, ease: "back.out(2)" }, t + 0.8);
+        tl.set("#cntn", { textContent: "0" + (i + 1) }, t);
+        if (i < 2) {
+          tl.to(c, { x: 820, y: 470, opacity: 0, duration: 0.6, ease: "power3.in" }, t + 2.75);
+          tl.to(l, { opacity: 0, y: -30, duration: 0.35, ease: "power2.in" }, t + 2.8);
+        }
+      });
+      tl.to(["#s2w"], { opacity: 0, duration: 0.4 }, 19.4);
+
+      // Scene 3 — CTA
+      tl.fromTo("#k3", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 19.7);
+      tl.fromTo("#t3 span", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: "power3.out" }, 19.7);
+      ["#m1", "#m2", "#m3"].forEach((m, i) => tl.fromTo(m, { opacity: 0, y: -260 }, { opacity: 1, y: 0, duration: 0.7, ease: "bounce.out" }, 19.9 + i * 0.18));
+      tl.fromTo("#cta", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(2)" }, 20.7);
+      tl.to("#cta", { scale: 1.05, duration: 0.45, yoyo: true, repeat: 3, ease: "sine.inOut" }, 21.4);
+      tl.fromTo("#sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, 21.0);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
